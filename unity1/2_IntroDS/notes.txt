@@ -1,0 +1,32 @@
++ Estrutura de Dados:
+  - É o ramo da Ciências da Computação que estuda os diversos mecanismos de organização de dados para atender aos diferentes requisitos de processamento.
+  - Manipula eficientemente os dados de um sistema computacional. 
+  - A escolha de uma ED adequada pode simplificar a implementação do algoritmo para um dado problema.
+  -
+
+* Tipos Abstratos de Dados:
+Tipo Abstrato de Dados (TAD) é um modelo de estruturação dos dados que especifica: (TAD = encapsula dados + operações)
+  - O tipo dos dados armazenados;
+  - As operações definidas sobre esses dados;
+  - Os tipos de parâmetros dessas operações
+  - Conceito matemático básico que define o tipo de dado;
+  - Define O QUE cada operação faz, não como faz.
+  - Não se relaciona com detalhes de implementação
+    
+  A Estrutura de dados implementa um tipo abstrato de dados em uma linguagem de programação.
+
+  Operações típicas de TADs:
+  - Criação de um TAD;
+  - Inclusões e remoções de dados no TAD;
+  - Percurso no TAD (varre todos os dados armazenados);
+  - Busca (busca algum dado dentro da estrutura).
+
+  Exemplos de TAD: listas, pilhas, etc. São dados abstratos, que a partir deles podemos fazer operações mais complexas.
+
+  Benefícios da programação com TADs:
+  - Organiza programa em unidades lógicas
+    o Podem ser compiladas e mantidas em separado.
+  - Encapsulamento
+    o Promove a independência entre o TAD e seus clientes.
+  - Aumento da confiabilidade
+    o Clientes não têm acesso direto à representação do TAD, a não ser por suas operações.
