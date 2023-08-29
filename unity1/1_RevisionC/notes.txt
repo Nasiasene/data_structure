@@ -1,0 +1,64 @@
++ Endereço e Ponteiros:
+
+- O endereço de memória de uma variável é o local da memória onde está variável esta armazenada.
+  o uso do operador '&' retorna essa posição de memória.
+
+  e.g: &x --> retorna a posição de memória da var x.
+  obs: não é permitido modificar o endereço de uma variável.    7x = 300 //inválido.
+
+
+- Ponteiros são um tipo especial de variável, onde seu valor é uma posição de memória de outra variável.
+  -- Ponteiros possuem sua própria posiçào de memória.
+
+  sintax: <tipo_var> *p;   e.g: int *x; //um ponteiro para uma variável do tipo inteiro.
+
+  e.g: int inteiro;
+       int *p;
+
+       p = &inteiro; //o ponteiro p está recebendo a posição de memória da variável 'inteiro' do tipo int.
+
+  -- Quando utilizo o operador '*' antes do ponteiro, poderei alterar/acessar o valor da variável apontada pelo ponteiro.
+    e.g:float meuFloat = 3.14;
+        float *ponteiroParaFloat = &meuFloat;
+
+        *ponteiroParaFloat = 1.6; //meuFloat = 1.6
+    
+    obs: ao declarar um ponteiro com '*' não significa que ele tenha acesso a variavel desde o principio: float *ponteiroParaFloat = &meuFloat; 
+
+
+
++ Structs:
+
+  - Estruturas são tipos estruturados similares a listas, entretanto seus elementos podem ser de diferentes tipos.
+  sintax:
+  typedef struct {
+    <tipo1> var1'
+    <tipo2> var2;
+    ...
+  } nome_struct;
+
+  e.g:
+  typedef struct {
+    char nome[30];
+    short dia, mes, ano;
+   } tRegistro;
+    ...
+   tRegistro registroDaPessoa, *ptrParaRegistro;  //criou uma variavel e um ponteiro que apontara para o tipo 'tRegistro'.
+
+  - Acesso a Campos de Estruturas: posso acessa-las assim que inicio uma variável, sendo necessário que cada valor dela seja colocado na ordem em que foram declaradas na struct.
+    e.g: tRegistro registroDaPessoa = {"Jose da Silva", 12, 10, 1960};
+
+  - Acesso a Campos de Estruturas: posso utilizador o operador '.' para acessar as variaveis pelo seu nome.
+    e.g: registroDaPessoa.dia;
+
+  - Acesso a Campos de Estruturas: posso utilizar o operado '->' atraves de um ponteiro.
+    e.g ptrPraRegistro = &registroDaPessoa;
+        
+
+
++ Módulos:
+  - Unidades que constituem um programa de certo tamanho
+  - serve para tornar o prgrama mais clean e organizar melhor o porgrama.
+  - É divídido em modulos extensão '.h' e '.c'
+  - Somente um dos módulos pode conter o main()
+  
