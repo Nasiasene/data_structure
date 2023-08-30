@@ -1,0 +1,26 @@
+1.
+for (int i = 0; i < n-1; i++){              // n
+    min=i;                                  // n
+    for (int j = 1; j < n-1; j++){          // n*(n-1)
+        if A[j] < A[min]{                   // n*(n-1)
+            min = j;                        // n*(n-1)
+        }
+        temp = A[min];                      // n*(n-1)
+        A[min] = A[i];                      // n*(n-1)
+        A[min] = temp;                      // n*(n-1)
+    }
+}
+
+f(n) = 6n**2 - 4n  --->  O(n**2)
+
+
+
+
+2.
+a) Não, com valores pequenos como n=1, o algoritmo T1 será executado mais rapidamente, basta atribuir os valores.
+b) Não, com valores pequenos como n=1 T1=1 e T2=2.
+
+3.
+Busca Binária: busc-ase um elemento dentro de uma lista ordenada do menor ao maior valor.
+na usca binária, verifica-se se o elemento central é igual ao elemento buscado, caso seja diferente, verificamos se o valor é maior ou menor.
+caso seja maior, verificamos somente a lista para tras do elemento do meio e caso seja maior verificamos para frente.
