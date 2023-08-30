@@ -1,0 +1,39 @@
+Códigos iniciais com C++
+
+printf = std::cout << da biblioteca <iostream>
+//cout = console output.
+//utiliza-se setas para esquerda, e tudo que vem depois dela sera printado.
+ex:
+    std::cout << "Oá Mundo\n" << var1  << var2;
+
+scanf = std::cin >> da biblioteca <iostream>
+//cin = console input.
+//utiliza-se setas para direita e entrada será transferida para variavel.
+ex:
+    std::cin >> var1;
+
+tipos = mesma coisa em C (Obs: botar 'f' no final dos numeros float).
+laços de repetição/if-else = mesma coisa em C.
+
+iniciar struct = struct <nome>{};
+método construtor: 
+
+Classes, não existem em C.
+- Funciona similar as structs.
+- Tem Atributos(variaveis) e Métodos(funções).
+- Os atributos são declarados de maneira privada.
+- Os métodos de maneira publica.
+  - Existe o método construtor, responsável por quando iniciar algum objeto de uma classe, atribuir valores iniciais aos atributos.
+  - Ele terá o mesmo nome da Classe e receberá como parametro os atributos da classe.
+    exemplo de incialização:
+    <NomeClass> var = <NomeClass>(variáveis)
+  - Os métodos gets e sets são responsáveis por retornar o valor dos atributos ou alterá-los.
+  - usualmente os métodos são "protótipados" dentro do escopo da classe e definidos fora dela.
+    e.g: 
+    {//classe
+        void setVar();
+    };
+
+    void NomeClasse::setVar(){
+        ...
+    }
