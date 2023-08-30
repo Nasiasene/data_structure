@@ -38,7 +38,7 @@ class PessoaClass{
     PessoaClass(string _nome = "", int _idade = 0, int _ano = 0){
         nome = _nome;
         idade = _idade;
-        ano = _ano;
+        setAno(_ano); //Posso usar Métodos dentro do construtor.
     };
 
     //gets e sets (getNome, setNome, getIdade, setIdade, getAno, setAno).
