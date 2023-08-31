@@ -1,0 +1,154 @@
++++ LISTAS:
+São struturas de dados lineares que agrupam informações referentes a um conjunto de elementos relacionados.
+
+- Listas com Representação Sequencial
+- Listas com Representação Dinâmica
+  > Listas Simplesmente Encadeadas
+  > Listas Duplamente Encadeadas
+  > Listas Circulares
+
+- Conjunto de operações (interface):
+  1. Criar uma lista vazia;
+  2. Verificar se uma lista está vazia;
+  3. Verificar se uma lista está cheia;
+  4. Inserir um novo elemento após (ou antes) de uma determinada posição na lista;
+  5. Remover um elemento de uma determinada posição na lista;
+  6. Exibir os elementos de uma lista, etc.
+
+- Alocação sequencial: 
+    Os elementos estão dispostos de forma contínua na meméria.
+- Alocação Encadeada:
+    Elementos dispostos aleatoriamente na memória, encadeados por ponteiros.
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+++ Listas com Representação Sequencial (memória continua):
+Conjunto de registros (elementos), onde o sucessor de um elemento ocupa uma posição física subsequente.
+ex: array/vetor.
+
+- A inserçào de um elemento numa posição 'i' irá mover todos os itens a sua frente ( > i) para direita(somando +1).
+- A remoção de um elemento numa posição 'i' irá mover todos os itens a sua frente ( > i) para esquerda(diminuindo -1).
+
++ Vantagens:
+  - Acesso ao i-ésimo elemento é imediato (pelo index);
+  - Algoritmos simples.
+
++ Desvantagens:
+  - Não usa memória de forma eficiente
+      - Aloca um espaço finito e predeterminado (vet[20]);
+
++ Quando usar:
+  - Listas pequenas;
+  - Inserção/Remoção no fim da Lista;
+  - Tamanho máximo bem definido.
+
++ Operações Básicas:
+  - Criação da lista vazia;
+  - Verificar se a lista está vazia;
+  - Verificar se a lista está cheia;
+  - Obter o tamanho da lista;
+  - Obter/modificar o valor do elemento de uma determinada posição na lista;
+  - Inserir um elemento em uma determinada posição;
+  - Retirar um elemento de uma determinada posição.
+
++ Implementação:
+list_seq.cpp
+
+//caracteristicas (gets)
+bool vazia();
+bool cheia();
+int tamanho();
+int elemento(int pos);   //Obtém o i-ésimo elemento de uma lista.
+int posicao(int dado);   //Retorna a posição de um elemento pesquisado.
+
+//modificações (sets)
+bool insere(int pos, int dado);  //Insere um elemento em uma determinada posição.
+int remove(int pos);     //Remove um elemento de uma determinada posição.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+++ Alocação Dinâmica de Memória
+Tipos de Dados Dinâmicos: Listas Encadeadas.
+
+em c++:
+<tipo var>* p;
+p = new <tipo var>();
+p = new <tipo_var>[]
+
+delete p;
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+++ Listas Simplesmente Encadeadas:
+- Numéro de elementos (nós) da lista pode aumentar ou diminuir dinamicamente à medida que novos elementos são inseridos ou removidos.
+- Os elementos da lista não ficam sequenciados na memória.
+
+- É uma estrutura de dados que consiste de uma sequência de nós (são os elementos), e eles tem sua própria classe.
+    - Cada nó armazena: conteúdo do lemento e uma ligação para o próximo nó. (imagine um struct com dois tipos de dados).
+    - As operações sobre nó são:
+      - Atualiza informação
+      - Atualiza próximo
+      - Recupera informação
+      - Recupera próximo
+    - O último nó da lista aponta para um ponteiro null
+    - Implementação de um nó:
+    class No{
+        private:
+            int conteudo;
+            No* proximo;    //ponteiro para o próximmo nó.
+
+        public:
+            No(){
+                proximo = nullptr;
+            }
+        
+        //gets e sets
+    };
+
+- Tem dois novos atributos, um ponteiro que aponta para o primeiro nó da lista(head) e um inteiro que mede o tamanho da lista.
+  - e/g:
+    class ListaEnc{
+        private:
+            No* cabeca;
+            int tam;
+        public:
+            ListaEnc(){
+                cabeca = nullptr;
+                tam = 0;
+            }
+    }
+
++ Vantagens:
+  - Melhor aproveitamento da memória;
+
++ Desvantagens:
+  - Algoritmos mais complexos;
+  - Uso de apontadores;
+  - O acesso aos nós deve ser feito de forma sequencial(a partir do primeiro).
+
++ Operações Básicas:
+  - Criação da lista vazia;
+  - Verificar se a lista está vazia;
+  - Obter o tamanho da lista;
+  - Obter/modificar o valor do elemento de uma determinada posição na lista;
+  - Inserir um elemento em uma determinada posição;
+  - Retirar um elemento de uma determinada posição.
+
+
+
++ Implementação:
+list_enc.cpp
+
+//caracteristicas (gets)
+bool vazia();
+bool cheia();
+int tamanho();
+int elemento(int pos);   //Obtém o i-ésimo elemento de uma lista.
+int posicao(int dado);   //Retorna a posição de um elemento pesquisado.
+
+//modificações (sets)
+bool insere(int pos, int dado);  //Insere um elemento em uma determinada posição.
+int remove(int pos);     //Remove um elemento de uma determinada posição.
