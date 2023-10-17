@@ -75,10 +75,17 @@ Tipos de Dados Dinâmicos: Listas Encadeadas.
 
 em c++:
 <tipo var>* p;
-p = new <tipo var>();
-p = new <tipo_var>[]
+p = new <tipo var>;
+p = new <tipo_var>[TAM];
 
 delete p;
+delete[] p; 
+
+- O operador new retorna uma posiçào de memória.
+- O operador delete deleta a posição de memória de uma determinada var_dinamica (use delete[] caso seja um array)
+
+vector<int> *meuVetor = new vector<int>;
+string *minhaString = new string("Hello, World!");
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
