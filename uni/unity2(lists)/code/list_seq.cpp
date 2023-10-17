@@ -4,7 +4,7 @@ class ListaSeq {
     private:
         //privado
 
-        int *dados;
+        int *dados; //vetor de inteiros
         int tamAtual;
         int tamMax;
 
@@ -23,8 +23,8 @@ class ListaSeq {
         bool vazia();
         bool cheia();
         int tamanho();
-        int elemento(int pos); 
-        int posicao(int dado); 
+        int elemento(int pos);  //Retorna o VALOR de um elemento em uma dada posição.
+        int posicao(int dado);  //Retorna o INDEX de um elemento com um dado valor.
 
         //modificações (sets)
         bool insere(int pos, int dado);  //Insere um elemento em uma determinada posição.
@@ -48,7 +48,7 @@ int ListaSeq::elemento(int pos) {
     int dado;
 
     if (pos > tamAtual || pos <= 0) {
-        return -1;
+        return -1; //Se o index informado for > tam_lista OU o index < 0: retorne -1
     }
     dado = dados[pos - 1];
     return dado;
@@ -60,12 +60,12 @@ int ListaSeq::posicao(int dado) {
             return (i + 1);  // index
         }
     }
-    return -1;
+    return -1; //Se não achou o valor na lista retorne -1.
 }
 
 bool ListaSeq::insere(int pos, int dado) {
     if (cheia() || pos > tamAtual + 1 || pos <= 0) {
-        return false;
+        return false; //Se a lista esta cheia OU a index > tam_max OU index < 0: retorne false 
     }
 
     for (int i = tamAtual; i >= pos; i--) {
@@ -97,6 +97,8 @@ void ListaSeq::retorna_lista(){
      }
 }
 
+//Fim Objeto
+
 
 void preenche_lista(ListaSeq* l){
     for(int i = 0; i < 100; i++){
@@ -104,17 +106,20 @@ void preenche_lista(ListaSeq* l){
     }
 }
 
-
 int main(){
     ListaSeq lista;
 
-    if (lista.vazia()){ std::cout << "Lista Vazia!" << std::endl;}
-    else{ std::cout << "Lista Nao Vazia!" << std::endl;}
+    if (lista.vazia())
+        std::cout << "Lista Vazia!" << std::endl;
+    else
+        std::cout << "Lista Nao Vazia!" << std::endl;
 
     preenche_lista(&lista);
 
-    if (lista.vazia()){ std::cout << "Lista Vazia!" << std::endl;}
-    else{ std::cout << "Lista Nao Vazia!" << std::endl;}
+    if (lista.vazia())
+        std::cout << "Lista Vazia!" << std::endl;
+    else
+        std::cout << "Lista Nao Vazia!" << std::endl;
 
     std::cout << lista.tamanho() << std::endl;
 
