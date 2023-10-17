@@ -7,26 +7,31 @@ using namespace std;
 class No{
     private:
         No* proximo;
+        No* anterior;
         int valor;
 
     public:
-        No() : proximo{nullptr} {}
+        No() : proximo{nullptr}, anterior{nullptr} {}
 
         //gets
         int getValor(){return valor;}
         No* getProximo(){return proximo;} //Retorna um ponteiro para o próximo nó
+        No* getAnterior(){return anterior;}
 
         //sets
         void setProx(No* p){proximo = p;}
+        void setAnterior(No* p){anterior = p;}
         void setValor(int v){valor = v;}
+
 };
 
 
 
 //LISTA
-class ListaEnc{
+class ListaDuplaEnc{
     private:
         No* cabeca;  //Primeiro Nó da lista
+        No* cauda;   //Último Nó da lista
         int tamanho; //Tamanho atual da lista
 
         //SETS
@@ -34,11 +39,13 @@ class ListaEnc{
         bool insereMeio(int pos, int dado);
         bool insereFim(int dado);
         int removeInicio();
+        int removeInicioUnitaria();
         int removeMeio(int pos);
+        int removeFim();
 
     public:
         //construct
-        ListaEnc() : cabeca(nullptr), tamanho(0) {}
+        ListaDuplaEnc() : cabeca(nullptr), cauda{nullptr}, tamanho(0) {}
 
         //gets
         bool vazia(){if(tamanho==0){return true;}
@@ -54,7 +61,7 @@ class ListaEnc{
 };
 
 //gets
-int ListaEnc::posicao(int dado){   
+int ListaDuplaEnc::posicao(int dado){   
     int count = 1;
     No* aux = cabeca;
 
@@ -71,7 +78,7 @@ int ListaEnc::posicao(int dado){
     return -1;
 }
 
-int ListaEnc::elemento(int pos){
+int ListaDuplaEnc::elemento(int pos){
     if (vazia() || pos < 1 || pos > tamanho)
         return -1;
 
@@ -85,7 +92,7 @@ int ListaEnc::elemento(int pos){
     return aux->getValor();
 }
 
-void ListaEnc::retorna_lista() {
+void ListaDuplaEnc::retorna_lista() {
     No* aux = cabeca;
 
     while (aux != nullptr) {
@@ -97,7 +104,7 @@ void ListaEnc::retorna_lista() {
 
 
 //sets (ADICIONAR)
-bool ListaEnc::insere(int pos, int dado){
+bool ListaDuplaEnc::insere(int pos, int dado){
     if ((vazia()) && (pos != 1))
         return false;
 
@@ -111,17 +118,23 @@ bool ListaEnc::insere(int pos, int dado){
         return insereMeio(pos, dado); 
 }
 
-bool ListaEnc::insereInicio(int dado){
+bool ListaDuplaEnc::insereInicio(int dado){
     No *novo_no = new No();
-
     novo_no->setValor(dado);
     novo_no->setProx(cabeca);
+
+    novo_no->setAnterior(nullptr);
+    if (vazia())
+        cauda = novo_no;
+    else
+        cabeca->setAnterior(novo_no);
+
     cabeca = novo_no;
     tamanho++;
     return true;
 }
 
-bool ListaEnc::insereMeio(int pos, int dado){
+bool ListaDuplaEnc::insereMeio(int pos, int dado){
     int count = 1;
     No *novo_no = new No();
     novo_no->setValor(dado);
@@ -132,87 +145,113 @@ bool ListaEnc::insereMeio(int pos, int dado){
         count++;
     }
 
-    if (aux->getProximo() == nullptr)
+    if (aux == nullptr)
         return false;
 
+    novo_no->setAnterior(aux);
     novo_no->setProx(aux->getProximo());
+    aux->getProximo()->setAnterior(novo_no);
     aux->setProx(novo_no);
     tamanho++;
     return true;
 }
 
-bool ListaEnc::insereFim(int dado){
+bool ListaDuplaEnc::insereFim(int dado){
     No *novo_no = new No();
-    novo_no->setValor(dado); novo_no->setProx(nullptr);
+    novo_no->setValor(dado);
 
-    No* aux = cabeca;
-    while(aux->getProximo() != nullptr){
-        aux = aux->getProximo();
-    }
+    No* aux = cauda;
 
     novo_no->setProx(nullptr);
     aux->setProx(novo_no);
+    novo_no->setAnterior(cauda);
+    cauda->setProx(novo_no);
+    cauda = novo_no;
     tamanho++;
     return true;
 }
 
 
 //sets(REMOVER)
-int ListaEnc::remove(int pos) {
+int ListaDuplaEnc::remove(int pos) {
     if (vazia())
-        return -1; 
+        return 0; 
 
-    if (pos == 1)
+    if (pos == 1 && tamanho == 1)
+        return removeInicioUnitaria();
+
+    else if (pos == 1)
         return removeInicio();
+
+    else if (pos == tamanho)
+        return removeFim();
 
     else
         return removeMeio(pos);
 }
 
-int ListaEnc::removeInicio(){
+int ListaDuplaEnc::removeInicioUnitaria(){
+    int dado = cabeca->getValor();
+    cabeca = nullptr;
+    cauda = nullptr;
+    tamanho--;
+    return dado;
+}
+
+int ListaDuplaEnc::removeInicio(){
     No* aux = cabeca;
     int dado = aux->getValor();
 
     cabeca = aux->getProximo();
+    aux->getProximo()->setAnterior(nullptr);
     tamanho--;
 
     delete aux;
     return dado;
 }
 
-int ListaEnc::removeMeio(int pos){
-    No* atual = cabeca;
-    No* antecessor = nullptr;
+int ListaDuplaEnc::removeFim(){
+    No* aux = cauda;
+    int dado = aux->getValor();
+
+    cauda->getAnterior()->setProx(nullptr);
+    cauda = cauda->getAnterior();
+    tamanho--;
+
+    delete aux;
+    return dado;
+}
+
+int ListaDuplaEnc::removeMeio(int pos){
+    No* aux = cabeca;
     int count = 1;
 
-    while((count < pos) && (atual->getProximo() != nullptr)){
-        antecessor = atual;
-        atual = atual->getProximo();
+    while((count < pos-1) && (aux != nullptr)){
+        aux = aux->getProximo();
         count++;
     }
 
-    int dado = atual->getValor();
+    if (aux == nullptr)
+        return -1;
+    
+    int dado = aux->getValor();
+    aux->getAnterior()->setProx(aux->getProximo());
+    aux->getProximo()->setAnterior(aux->getAnterior());
 
-    if (antecessor) 
-        antecessor->setProx(atual->getProximo());
-    else 
-        cabeca = atual->getProximo();
-
-    delete atual;
     tamanho--;
-
+    delete aux;
     return dado;
 }
 //FIM LISTA
 
-void preenche_lista(ListaEnc* l) {
+void preenche_lista(ListaDuplaEnc* l) {
     for (int i = 1; i <= 100; i++) {
         l->insere(i, i);
     }
 }
 
 int main(){
-    ListaEnc lista;
+    ListaDuplaEnc lista;
 
     if (lista.vazia())
         std::cout << "Lista Vazia!" << std::endl;
@@ -229,7 +268,9 @@ int main(){
     std::cout << lista.get_tamanho() << std::endl;
 
     std::cout << lista.elemento(50) << std::endl;
+    lista.remove(100);
     lista.remove(50);
+    lista.remove(0);
     lista.insere(50, 2);
 
     lista.retorna_lista();

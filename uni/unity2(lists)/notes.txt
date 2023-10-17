@@ -94,26 +94,27 @@ string *minhaString = new string("Hello, World!");
 - Os elementos da lista não ficam sequenciados na memória.
 
 - É uma estrutura de dados que consiste de uma sequência de nós (são os elementos), e eles tem sua própria classe.
-    - Cada nó armazena: conteúdo do lemento e uma ligação para o próximo nó. (imagine um struct com dois tipos de dados).
+    - Cada nó armazena: conteúdo do elemento (valor) e uma ligação para o próximo nó (ponteiro). (imagine um struct com dois tipos de dados).
     - As operações sobre nó são:
-      - Atualiza informação
-      - Atualiza próximo
+      - Atualiza informação //muda valor
+      - Atualiza próximo    //Muda para quem o ponteiro aponta
       - Recupera informação
       - Recupera próximo
     - O último nó da lista aponta para um ponteiro null
     - Implementação de um nó:
-    class No{
-        private:
-            int conteudo;
-            No* proximo;    //ponteiro para o próximmo nó.
 
-        public:
-            No(){
-                proximo = nullptr;
-            }
+class No{
+  private:
+    int conteudo;
+    No* proximo;    //um ponteiro para o próximmo nó.
+
+  public:
+    No(){
+      proximo = nullptr;
+  }
         
-        //gets e sets
-    };
+    //gets e sets
+};
 
 - Tem dois novos atributos, um ponteiro que aponta para o primeiro nó da lista(head) e um inteiro que mede o tamanho da lista.
   - e/g:
@@ -159,3 +160,36 @@ int posicao(int dado);   //Retorna a posição de um elemento pesquisado.
 //modificações (sets)
 bool insere(int pos, int dado);  //Insere um elemento em uma determinada posição.
 int remove(int pos);     //Remove um elemento de uma determinada posição.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+++ Listas Suplamente Encadeadas:
+- Numéro de elementos (nós) da lista pode aumentar ou diminuir dinamicamente à medida que novos elementos são inseridos ou removidos.
+- Os elementos da lista não ficam sequenciados na memória.
+- Listas que permitem a movimentação nos dois sentidos (NÓS TEM PONTEIROS DE ANTERIOR E PRÓXIMO).
+
+- É uma estrutura de dados que consiste de uma sequência de nós onde cada nó armazena: conteúdo do elemento (valor) e uma ligação para o próximo nó (ponteiro) e o nó anterior (ponteiro).
+
+- Características:
+  - Ocupam mais memória do que uma lista simplesmente encadeada.
+  - Possibilidade de se movimentar nos dois sentidos simplifica a implementação de algumas funções para listas.
+
++ Implementação de Listas Duplamente Encadeadas
+- Operações Básicas
+  - Criação da lista vazia;
+  - Verificar se a lista está vazia;
+  - Obter o tamanho da lista;
+  - Obter/modificar o valor do elemento de uma determinada posição na lista;
+  - Inserir um elemento em uma determinada posição;
+  - Retirar um elemento de uma determinada posição.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+++ Listas Encadeadas Circulares:
+
+- Funciona da mesma forma que as outras Listas encadeadas.
+- Podem ser listas simples ou duplamente encadeada.
+- A sua diferença é: O ÚLTIMO NÓ APONTA PARA O PRIMEIRO ELEMENTO.
+
+- Útil Quando:
+  - Quando se deseja acessar os elementos da lista um por vez em loop

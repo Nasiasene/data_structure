@@ -11,10 +11,10 @@ class ListaSeq {
     public:
         //construtor
 
-        ListaSeq(){
-            tamMax = 100;
+        ListaSeq(int t){
+            tamMax = t;
             tamAtual = 0;
-            dados = new int[tamMax];
+            dados = new int[tamMax]; //Cria um vetor alocado dinamicamente com um tamanho específico.
         };
 
         //metodos:
@@ -107,7 +107,7 @@ void preenche_lista(ListaSeq* l){
 }
 
 int main(){
-    ListaSeq lista;
+    ListaSeq lista(100);
 
     if (lista.vazia())
         std::cout << "Lista Vazia!" << std::endl;
