@@ -69,7 +69,7 @@ bool ListaSeq::insere(int pos, int dado) {
     }
 
     for (int i = tamAtual; i >= pos; i--) {
-        dados[i] = dados[i - 1];
+        dados[i] = dados[i - 1]; //Passa os dados que estão a frente do index indicado para frente.
     }
 
     dados[pos - 1] = dado;
