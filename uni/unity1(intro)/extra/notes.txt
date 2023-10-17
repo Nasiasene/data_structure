@@ -37,3 +37,22 @@ Classes, não existem em C.
     void NomeClasse::setVar(){
         ...
     }
+
+
+Ponteiros -
+A memória de uma variável funciona da seguinte forma: ela tem uma POSIÇÃO DE MEMÓRIA(address) e um VALOR(value).
+
+Um ponteiro é um TIPO DE DADO que apontá para uma variável de um tipo previamente conhecido.
+Um ponteiro tem a sua posição de memória (ADDRESS) específica, assim como qualquer outra variável.
+Um ponteiro tem seu valor (VALUE) sendo a posição de memória de OUTRA varíavel.
+
+Sintaxe:
+<tipo_var> *<nome_ponteiro> = &<nome_var>
+- int *p; declara que p é um ponteiro que apontará para uma variavel do tipo int.
+- int *p = &var; declara p é um ponteiro que aponta para uma variavel var.  OBS: & é o operador que retorna a posição de memória(ADDRESS) de uma variável.
+- int *p;
+  p = &var;
+- int *p = &var;
+  *p = 22; //Muda o valor da vairável var para 22.
+- int *p = &var;
+  cout << p;     //Printará o valor da posição de memória (ADDRESS) de VAR.
