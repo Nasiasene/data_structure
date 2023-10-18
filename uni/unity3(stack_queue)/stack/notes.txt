@@ -1,0 +1,53 @@
+++ Pilha: 
+- Inserções e remoções ocorrem somente no topo da pilha.
+- LIFO: Last In First Out (Primeiro a entrar ÚLTIMO a sair)
+- Acesso a elementos da pilha é sempre feito através do seu topo.
+- Quando um elemento novo é introduzido na pilha, ele passa a ser o elemento do topo.
+- O único elemento que pode ser removido da pilha é o do topo.
+
+- Operações:
+    - PUSH (empilhar), ou empurrar.
+    - POP (desempilhar).
+
+- Utilizações:
+    - Implementação de compiladores (Pilha de execução de funções chamadas, Avaliação de expressões)
+    - Navegadores Web (Usam pilhas para armazenar os endereços mais recentemente visitados)
+    - Mecanismo de reversão de operações (“undo”) dos editores de texto [ctrl+z] (Armazena as alterações em uma pilha)
+
+
+- Dada uma pilha P = (a(1), a(2), ... a(n)), dizemos que:
+    - a(1) é o elemento da base da pilha;
+    - a(n) é o elemento topo da pilha;
+    - a(i + 1) está acima de a(i).
+
+
++ Formas de Representação de Pilhas:
+    - Alocação Sequencial: Elementos dispostos em posições contíguas de memória.
+    - Alocação Encadeada: Elementos dispostos aleatoriamente na memória, encadeados por ponteiros.
+
+-------------------------------------------------------------------------------------------------------------
+
++ Implementação de Pilhas Sequenciais:
+
+- Interface:
+    - Criar uma pilha vazia;
+    - Testar se a pilha está vazia;
+    - Verificar se a pilha está cheia;
+    - Obter o tamanho da pilha;
+    - Consultar o elemento do topo da pilha (top/peek);
+    - Consulta a posição de um elemento com relação ao topo da lista (search).
+    - Inserir um novo elemento no topo da pilha (push);
+    - Remover o elemento do topo da pilha (pop).
+
+-------------------------------------------------------------------------------------------------------------
+
++ Implementação de Pilhas Encadeadas:
+
+- Interface:
+    - Criar uma pilha vazia;
+    - Testar se a pilha está vazia;
+    - Obter o tamanho da pilha;
+    - Consultar o elemento do topo da pilha (top);
+    - Inserir um novo elemento no topo da pilha (push);
+    - Remover o elemento do topo da pilha (pop);
+    - Cada elemento da pilha é um NÓ.
