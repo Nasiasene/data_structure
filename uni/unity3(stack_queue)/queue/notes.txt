@@ -1,0 +1,29 @@
+++ Fila: 
+- Inserção é sempre feita no final da fila (lista).
+- Remoção é feita no início da fila.
+- FIFO: First In First Out (Primeiro a entrar PRIMEIRO a sair).
+- Início da fila move-se para a direita a cada retirada de elemento.
+
+- Operações:
+    - INSERE (no FINAL da lista/fila).
+    - RETIRA (no INICIO da lista).
+
+- Interface:
+    - Criar uma fila vazia;
+    - Testar se a fila está vazia;
+    - Verificar se a fila está cheia;
+    - Obter o tamanho da fila;
+    - Consultar o elemento da frente da fila;
+    - Inserir um novo elemento no fundo da fila;
+    - Remover o elemento da frente da fila.
+
+
++ Formas de Representação de Pilhas:
+    - Filas Sequenciais: 
+        - Um array (vetor) de elementos;
+        - Dois índices que representam o início e fim da fila;
+
+    - Filas Encadeadas:
+        - Implementa como uma lista com duas cabeças.
+        - Uma cabeça aponta para o início da fila e utra aponta para o fim(head e tail).
+        
