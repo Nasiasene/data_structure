@@ -10,6 +10,7 @@
   - Estuda o crescimento do tempo de execução a medida que o tamanho da entrada (n) cresce.
 
   +- Big-O:
+    -Como o código fica mais lento com o aumento de dados.
     - utilizada para representar a complexidade computacional de um algoritmo.
     - Um algoritmo O(n) é melhor do que um O(n**2)
     - Definimos g(n) = O(f(n)) se f(n) domina assintoticamente g(n) f(n) cresce mais rápido do que g(n).
