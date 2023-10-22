@@ -1,0 +1,41 @@
+++ Tabela Hash: Uma estrutura de Dados que permite realizar BUSCA eficiente em dados. (lembre-se as outras ED servem para ARMAZENAR os dados).
+    - Utilizado para tornar o processo de BUSCA mais eficiente.
+    - Faz a busca A partir de uma chave simples (key), faz uma busca rápida para obter o valor desejado.
+    - Associa chaves de pesquisa a valores(como um dicionario em python), 'key' : value.
+
+    - As chaves passam por uma FUNÇÃO HASH e sendo assim, recebem a sua posição dentro da tabela hash.
+
+    - Quando você for inserir um elemnto nessa tabela hash, você passará um valor (que será armazenado) e uma chave atelada a esse valor. 
+    - A chave será usada na FUNÇÃO HASH e a partir disso, você saberá em que index da tabela essa determinada key/valor esterá.
+    - Na inserção, a chave deve ser convertida para algum índice inteiro no array(sendo o array a tabela Hash).
+    - É necessário definir o tamanho da tabela, geralmente ela tem tamanho igual a valores na potência 2.
+
+    - A função que faz a conversão é chamada de função hash.
+        - Índice gerado é chamado de valor hash da chave.
+        - Representa a posição onde os dados serão inseridos.
+        - Ex: h(x) = x % tamanho_tabela (MUITO USADO)
+
++ Colisões: Quando uma key tem um mesmo valor hash de outra key.
+    - Duas estratégias principais: Reespalhamento ou Encadeamento.
+
+    -- Reespalhamento:
+        - Aplica uma função de espalhamento secundária sobre a chave (Aplicada sucessivamente até uma posição vazia ser encontrada).
+        - Modelo geral: rh(i) = (i + c) % tamanho_tabela (sendo rh a função de reespalhamento, i o valor hash da chave e c uma constante).
+        Ex: Teste linear: Coloca o registro na próxima posição vazia disponível.
+        rh(i) = (i+1) % tam
+
+        - Para buscar essa key que foi reespelhada, deve-se verificar a posição indicada pelo valor hash no array;
+        - Se não for a chave pesquisada, aplique função de reespalhamento até encontrar a chave ou uma posição vazia.
+
+    -- Encadeamento:
+        - Mantém uma lista encadeada para cada conjunto de chaves que colidem.
+        - Sendo assim, cada elemento de uma tabela hash com colisão, seria uma lista encadeada.
+        - É muito eficiente pra pesquisa, entretanto demanda de muito armazenamento e pode desperdiçar memória.
+
+    - Para não ter colisões ou ter menor numero possível:
+        - o tamanho da tabela_hash > numero_elementos.
+        - Tamanho da tabela ser um número primo. (tam = 2*num_elementos, a partir do valor de tam, pega-se o numero primo mais próximo.)
+        - Fator de carga é maximizado dessa forma. (fc = num_elementos/tam_tabela)
+        
+
+//OBS em casos em que as keys sejam strings e não inteiros, seá utilizado uma função para transformar uma string em um valor inteiro.
