@@ -1,0 +1,25 @@
+++ Árvore: É um modelo de uma estrutura onde os nós estão organizados de forma hierárquica.
+
+    - Uma árvore consiste de um conjunto de nós com uma relação pai-filho (hierárquica).
+    
+    - Terminologia de Árvore:
+        - Composta por NÓS, e ligações ou ARESTAS.
+
+        - Raiz: Primeiro nó da árvor Não contém um pai.
+        - Nó não-terminal: nó com pelo menos um filho.
+        - Nó FOLHA (ou nó terminal) : nó sem filhos.
+
+        - O tamanho de uma árvore consiste na sua quantidade de NÓS.
+        - Grau de um nó: número máximo de filhos de um nó. (numa árvore binária = 2)
+        - Profundidade de um nó: número de ascendentes. (quantidade de nós acima)
+        - Altura de uma árvore: maior profundidade de qualquer nó. (quantidade de arestas entre a raiz e o nó mais fundo da árvore) [Raiz: 0, primeiros filhos: 1, netos: 2 ....]
+        - Ascendentes de um nó: pai, avô, bisavô etc.
+        - Descendente de um nó: filho, neto, bisneto, etc.
+        - Sub-ávore: uma árvore menor consistindo de um nó e seus descendentes que deriva de uma árvore maior.
+    
+
++ Árvore Binária: É um tipo de Árvore, onde o grau de cada nó é no máximo dois.
+    - Cada nó tem no máximo 2 filhos.
+    - Conjunto de nós que ou é vazio ou consiste de:
+        - Sub-árvores direita.
+        - Sub-árvores esquerda.
