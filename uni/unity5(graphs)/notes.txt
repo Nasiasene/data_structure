@@ -1,0 +1,131 @@
+++ Grafos: é um conjunto de Nós(VÉRTICES) e uma coleção de pares de vértices chamados ARESTAS.
+    - Vértices geralmente contém o conteúdo e as arestas servem para ligar os vértices dois a dois.
+    - Vértices são ADJACENTES entre si, se houver uma aresta ligando eles.
+    - arestas estão sempre associadas a dois vértices.
+    - G = (V, A) [V= vértices, A= arestas]
+    - e.g: G(V,A); V = {1, 2, 3, 4};
+           A = {{1, 2}, {1, 3}, {1, 4} {2, 3}, {3, 4}}.
+    - Vizinhança do vértice V é conjunto de vértices que possui relação (aresta) com V. (V(1) = {2, 3, 4})
+
+Exemplo: Rede de Aeroportos:
+Cada vértice é um aeroporto e cada aresta representa uma rota de vôo entre dois aeroportos.
+
+
+- Existem dois tipos de Grafos:
+    - DIRECIONADOS:
+        - Existe uma orientação entre as arestas.
+        - Um vertice pode estar ligado a outro, mas o contrário pode não ocorrer.
+        - A -> B mas NÃO B -> A
+
+    - NÃO DIRECIONADOS:
+        - Não existe orientação quanto as arestas.
+        - Se uma ligação ocorre entre os vértices, logo ela será mútua.
+
+
+- O vértice tem um grau relacionado: É o número de arestas que ele tem associado(sejam saindo ou entrando).
+    - No caso dos grafos direcionados, os seus vértices tem um grau de SAÍDA e de ENTRADA.
+
+
+- Laço: Uma aresta é chamada de laço se ela liga um vértice a ele mesmo {v, v}.
+
+
+- Caminho: É uma sequencia de vértices de modo que exista sempre uma aresta ligando o vértice anterior com o seguinte.
+    - Caminho simples: nenhum dos vértices no caminho se repete.
+    EX: V{V, X, W, U}; C1=(V, X, Y, W, U ...)
+    - Comprimento do caminho: É o número de arestas que o caminho usa.
+    EX: V{V, X, W, U}; C1=(U, W, X, Y, W, V ...)
+
+    - Ciclo: É um caminho que começa e termina num mesmo vértice. (um laço é um ciclo de comprimento 1)
+    - Grafo ACÍCLICO: Não contem ciclos simples.
+
+
+- Tipos de Grafos:
+    - Grafo Trivial: Somente UM vértice e nenhuma aresta.
+    - Grafo Simples: Grafo não direcionado, sem laços.
+    - Grafo Completo: É um grafo  simples onde todos os vértices se conectam uns com os outros.
+    - Grafo Regular: Grafo onde todos os vértices possuem o MESMO GRAU.
+    - Subgrafo: Um subconjunto de grafos de um grafo maior.
+    - Grafo Conexo:  Existe um caminho partindo de qualquer vértice para outro.
+    - Grafo Desconexo: Não existe um caminho ligando todos os vértices (alguém está fora).
+    - Grafos Ponderados: Grafos que possuem PESOS associados a cada uma de sua arestas. (pode ser distancia etc).
+
+
+- Representação dos grafos no computador:
+    - MATRIZ ADJACÊNCIA.
+    - LISTA ADJACÊNCIA.
+
+-- Matriz Ajdacênia:
+    - Uma Matriz NxN onde N é o número de vértices.
+    - Tem alto consumo computacional ( O(n^2) )
+    - Uma aresta é responsável por ter valor != de 0 nas ligações.
+    - A complexidade de achar um elemento na matriz é O(1)
+Ex:
+    0	270	0	0	0	0	0	0	0	0
+    270	0	0	0	0	0	0	0	0	0
+    0	0	0	504	655	908	1299	0	0	0
+    0	0	504	0	151	423	723	0	0	0
+    0	0	655	151	0	272	571	1888	0	0
+    0	0	908	391	240	0	241	1560	0	0
+    0	0	1299	723	571	241	0	1617	0	0
+    0	0	0	0	1902	1718	0	0	1274	1510
+    0	0	0	0	0	0	0	1274	0	236
+    0	0	0	0	0	0	0	1470	236	0
+
+Cada elemento IxI é um vértice.
+Os valores != 0 representam ligações (adjacência) entre vértices.
+Nesse caso, este grafo tem 10 vértices, é um grafo ponderado e desconexo.
+
+-- Lista Adjacência:
+    - É umarray de lista encadeadas onde cada posição do array representa um vértice, e cada vértice desse array é uma lista que aponta para os vértices adjacentes a ele.
+    - Tem baixo consulo computacional quando comparado com a matriz adj. O(n)
+    - Entretando, para busca numa lista adj. é maior que a matriz. O(n)
+
+Ex:
+v1 -> V2 ->
+v2 -> V2 ->
+v3 -> V4 -> v5 -> v6 -> v7 ->
+v4 -> v3 -> v5 -> v6 -> v7 ->
+v5 -> v3 -> v4 -> v6 -> v7 -> v8 ->
+v6 -> v3 -> v4 -> v5 -> v7 -> v8 ->
+v7 -> v3 -> v4 -> v5 -> v6 -> v8 ->
+v8 -> v5 -> v6 -> v9 -> v10 ->
+v9 -> v8 -> v10 ->
+v10-> v8 -> v9 ->
+
+
+
+- Busca em Grafos:  
+    - Consiste em explorar um grafo; 
+    - Depende do vértice inicial; 
+    - Processo sistemático de como caminhos por seus vértces e arestas.
+
+    - BUSCA EM PROFUNDIDADE. [DFS]
+    - BUSCA EM LARGURA. [BFS]
+
+-- Busca em Profundidade: partindo de um vértice inicial, ela explora o MÁXIMO cada um dos seus ramos, para depos retroceder (backtracking). (vai até o final e volta)
+    - A estratégia é buscar o vértice mais profundo no grafo sempre  que possível:
+        - As arestas são exploradas a partir do vértice v mais recentemente  descoberto que ainda possui arestas não exploradas saindo dele.
+    - Quando todas as arestas adjacentes a v tiverem sido  exploradas a busca anda para trás para explorar vértices que  saem do vértice do qual v foi descoberto (backtraking).
+    - Usa-se o conceito de PILHA.
+    - Empilha-se primeiro os elementos adjacentes ao passado como parametro.
+    - Depois visita o topo da pilha, desempilha o valor, e empilha todos os vetores adjacentes a este vetor retirado.
+    - Caso não haja valores a ser empilhados, seja porque chegou no final do grafo, ou porque os elementos a serem visitados já foram empilhados, você simplesmente os pula.
+    - Repete o mesmo processo.
+
+    //- Para controlar a busca, o algoritmo da Busca em  Profundidade pinta cada vértice na cor branca, cinza ou  preto:
+        //- Branca: não visitado;  
+        //- Cinza: visitado;  
+        //- Preta: visitado e seus nós adjacentes visitados.
+
+
+
+-- Busca em largura (extensão): Partindo de um vértice ela explora todos os seus vértices vizinhos. Em seguida, para cada vértice ele repete o mesmoprocesso. (imagine um circulo aumentando)
+    - Visita todos os vértices adjacentes de um dado Vértice e depois continua.
+    - Busca em camadas.
+    - Determina a menor distância em números de aresta.
+    - Usa-se o conceito de FILA.
+    - Os vert a serem visitados são colocados numa fila (inicialmente só o inicial).
+    - Na medida em que visitamos um vert, colocamos os seus vizinhos/adjacentes na fila, mas somente caso ainda não estejam lá.
+    - Se a fila estiver vazia e ainda restarem vertices a serem visitados, reiniciamos o procedimento a partir de um deles.
+    - Precisa-se de vértice inicial para começar a busca.
+    - na hora de remover um vertice da fila, adiciona-se os vertices adjacentes a ele no final da fila.
