@@ -23,3 +23,117 @@
     - Conjunto de nós que ou é vazio ou consiste de:
         - Sub-árvores direita.
         - Sub-árvores esquerda.
+
+    - Percorrer árvore binária:
+        - Em árvores não há nenhuma ordem linear natural para se visitar os nós. (Listas, no entanto, são estruturas lineares porque existe uma ordem linear natural para se visitar os nós.)
+        - Três tipos de caminhamento em AVBin mais comuns são:
+            - Caminhamento em ordem prefixa (pré-ordem);
+            - Caminhamento em ordem infixa (in-ordem);
+            - Caminhamento em ordem sufixa (pós-ordem).
+
+            - Ideia geral: Visitar a raiz, e Caminhar em suas sub-árvores esquerda e direita.
+
+-- Caminhamento em Pré-ordem:
+    - Visita primeiro a raiz, depois o filho a esquerda e o filho a direita.
+    - Começa com a raiz.
+    - Termina com o elemento mais a direita.
+    - PRINT ANTES DE TUDO.
+
+*ex:
+void exibePreOrdem(tArvbin T) {
+    if (T == NULL)
+        return ;
+
+    cout << T->valor; //INFO
+
+    if (T->esq != NULL) //SEMPRE PRIMEIRO PELA ESQUERDA.
+        exibePreOrdem(T->esq);
+    if (T->dir != NULL) // DEPOIS PELA DIREITA.
+        exibePreOrdem(T->dir);
+} 
+
+
+-- Caminhamento em In-ordem:
+    - Visita primeiro o filho a esquerda, depois a raiz e por ultimo o filho a direita.
+    - Começa com o filho mais a esquerda.
+    - Termina com o elemento mais a direita.
+    - PRINT NO MEIO DE TUDO.
+
+*ex:
+void exibeInOrdem(tArvbin T) {   
+    if (T == NULL)
+        return ;
+
+    if (T->esq != NULL)
+        exibeInOrdem(T->esq);
+
+    cout << T->valor; //INFO
+
+    if (T->dir != NULL)
+        exibeInOrdem(T->dir);
+}
+
+        
+-- Caminhamento em Pós-ordem:
+    - Visita primeiro o filho a esquerda, depois o filho a direita e por último a raiz.
+    - Começa com o filho mais a esquerda.
+    - Termina com a raiz.
+    - PRINT DEPOIS DE TUDO.
+
+*ex:
+    void exibePosOrdem(tArvbin T) {
+    if (T == NULL)
+        return ;
+
+    if (T->esq != NULL)
+        exibePosOrdem(T->esq);
+    if (T->dir != NULL)
+        exibePosOrdem(T->dir);
+
+    cout << T->valor; // INFO
+} 
+
+
+
++ Árvore Binária DE PESQUISA (ABP): É uma árvore binária onde tudo que estiver a esquerda da raíz/nó tem um valor menor que o do nó, e a direita terá um valor maior.
+    - Valor da sub-árvore esquerda < valor da raiz.
+    - valor da sub-árvore direita > valor da raiz.
+    - Subárvores direita e esquerda são também ABP.
+    - Para remoção de elementos:
+        - Caso remova uma folha, basta removê-la normalmente, sem preocupações.
+        - Caso remova um nó com um filho, bastá por o filho no lugar do nó e depois removê-lo.
+        - Caso remova um nó com 2 filhos, basta botar o filho a esquerda (menor) que está mais a direita e trocá-lo de lugar (no caso o menor mais próximo).
+
+
++ Árvore Binária de Pesquisa BALANCEADA (AVL):
+O termo AVL foi definido em homenagem aos matemáticos russos Adelson-Velskii e Landis. 
+
+    - Árvores AVL são ABPs onde a diferença em altura entre as sub-árvores esquerda e direita é no máximo 1 ( <= 1).
+    - Uma ABP não balanceada, é uma árvore onde um dos ramos da árvoe (esquerdo ou direito) tem muito mais elementos em profundidade do que o outro ramo( => 2).
+        - (Sub-árvores da esquerda e direita tem alturas muito diferentes.)
+    - Desbalanceamento pode resultar em diferenças de desempenho para acessar aos nós da ABP.
+    - Uma ABP é dita balanceada quando: 
+        - Para qualquer nó, as sub-árvores à esquerda e à direita possuem a mesma altura (ou alturas similares). 
+
+    - O balanceamento de uma árvore binária pode ser: 
+        - Estático: consiste em construir uma nova versão da árvore, reorganizando-a.
+        - dinâmico: a cada nova operação realizada na ABP, são realizadas rotações, para torná-la, novamente, balanceada.
+
+    - Fator de Balanceamento (FB) de um nó: corresponde a altura da subárvore direita do nó menos a altura da subárvore esquerda do nó. [FB = hD - hE] . (altura dir - altura esq)
+        - Seja n um nó qualquer da árvore:
+            - se FB(n) = 0, as duas sub-árvores têm a mesma altura;
+            - se FB(n) = -1, a sub-árvore esquerda é mais alta em 1 nível;
+            - se FB(n) = +1, a sub-árvore direita é mais alta em 1 nível;
+
+    - A cada inserção, rebalanceia a árvore.
+        - Fazer as correções necessárias para manter sempre a árvore como uma AVL
+        - Qualquer nó n deve ter |FB(n)| <= 1.
+
+    - Quando um nó está desbalanceado para um sentido, e seu filho está inclinado para o sentido inverso, é necessário rotacionar o seu filho antes.
+
+    - Dicas:
+        - FB positivo (+) a rotação para à esquerda
+        - FB negativo (-) a rotação para à direita
+        - Para identificar quando uma rotação é simples ou dupla devese observar os sinais do FB:
+            - Sinais iguais para pai e filho, a rotação é simples
+            - Sinal diferentes para pai e filho, a rotação é dupla
