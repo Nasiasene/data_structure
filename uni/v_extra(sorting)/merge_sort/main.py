@@ -35,6 +35,8 @@ def merge_sort(lista):
 
     merge_sort_recursivo(0, len(lista))
 
+
+
 # Medir o tempo para ordenar lista1
 lista1 = []
 with open("uni/v_extra(sorting)/data/num.1000.1.in", 'r') as file:
