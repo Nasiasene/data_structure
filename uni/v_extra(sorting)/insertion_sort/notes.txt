@@ -1,0 +1,20 @@
++ O algoritmo de ordenação Insertion Sort é um dos algoritmos de ordenação mais simples e eficientes para ordenar um conjunto de elementos.
+  Ele funciona de maneira semelhante a como organizamos cartas em nossas mãos quando jogamos um jogo de cartas.
+  A ideia principal é construir a lista ordenada um elemento de cada vez, inserindo cada novo elemento na posição correta em relação aos elementos já ordenados.
+
+- Funcionamento:
+
+    1.Divisão da lista: O algoritmo começa considerando o primeiro elemento da lista como a lista ordenada (já que um único elemento é naturalmente ordenado).
+
+    2.Iteração: O algoritmo percorre o restante da lista, um elemento de cada vez, da esquerda para a direita.
+
+    3.Inserção: Para cada elemento restante, o algoritmo compara esse elemento com os elementos na lista ordenada. Ele move os elementos maiores para a direita para criar espaço para o novo elemento e insere o elemento na posição apropriada.
+
+    4.Repetição: O algoritmo repete esse processo até que todos os elementos tenham sido inseridos na lista ordenada.
+
+
+- Insertion Sort é eficiente para pequenos conjuntos de dados ou quando a maioria dos elementos já está ordenada. O(n) no melhor dos casos (lista já ordenada)
+- Seu desempenho não é tão bom em conjuntos de dados muito grandes, pois requer O(n^2) comparações e movimentações no pior caso.
+
+- Apesar de não ser a escolha mais eficiente para grandes conjuntos de dados, o Insertion Sort é fácil de entender, implementar e requer uma quantidade mínima de recursos de memória, 
+  tornando-o útil em algumas situações.
