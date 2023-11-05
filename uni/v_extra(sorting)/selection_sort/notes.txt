@@ -1,0 +1,23 @@
++ O algoritmo de ordenação Selection Sort é outro método simples de ordenação que, embora não seja o mais eficiente para grandes conjuntos de dados,
+  é fácil de entender e implementar.
+  O Selection Sort opera dividindo o conjunto de elementos em duas partes: a parte ordenada e a parte não ordenada.
+
+- Funcionamento:
+    1. Divisão da lista: O algoritmo começa considerando o primeiro elemento da lista como a lista ordenada (novamente, um único elemento é naturalmente ordenado),
+                         enquanto o restante da lista é considerado não ordenado.
+
+    2. Seleção do elemento mínimo: O algoritmo procura o elemento mínimo na parte não ordenada da lista, ou seja, encontra o menor elemento entre os elementos não classificados.
+
+    3. Troca: Uma vez encontrado o elemento mínimo, o algoritmo o troca com o elemento no início da parte não ordenada.
+              Isso efetivamente move o elemento mínimo para o final da parte ordenada da lista.
+
+    4. Iteração: O algoritmo repete esse processo, avançando a fronteira entre a parte ordenada e a parte não ordenada em um elemento.
+
+    5. Repetição: O algoritmo continua a selecionar o elemento mínimo na parte não ordenada, trocá-lo com o primeiro elemento da parte não ordenada e avançar a fronteira até que toda a lista esteja ordenada.
+
+
+- O número mínimo de trocas, que é útil em situações em que a troca de elementos é cara em termos de recursos.
+- É ineficiente para grandes conjuntos de dados, pois requer O(n^2) comparações no pior caso, independentemente do estado original da lista.
+
+- Em resumo, o Selection Sort é um algoritmo de ordenação simples e intuitivo que opera selecionando o elemento mínimo repetidamente e o movendo para a parte ordenada da lista. 
+  Embora seja útil em algumas situações, existem algoritmos de ordenação mais eficientes, como o Merge Sort e o Quick Sort, para conjuntos de dados maiores.
