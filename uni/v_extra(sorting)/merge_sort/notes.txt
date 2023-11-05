@@ -1,0 +1,19 @@
++ O algoritmo de ordenação Merge Sort é um dos algoritmos de ordenação mais eficientes e amplamente usados.
+  Ele segue a abordagem de "dividir para conquistar" para ordenar um conjunto de elementos.
+  O Merge Sort é conhecido por sua estabilidade e eficiência.
+
+- Funcionamento:
+
+    1. Divisão: O algoritmo começa dividindo a lista não ordenada em duas metades de tamanho aproximadamente iguais, recursivamente, até que cada sublista tenha zero ou um elemento.
+                Isso é feito dividindo a lista repetidamente no meio.
+
+    2. Ordenação: Cada uma das sublistas resultantes, que agora contêm zero ou um elemento, é considerada ordenada por definição. A ordenação de sublistas maiores ocorre da seguinte maneira:
+        - Combinam-se duas sublistas adjacentes para criar uma sublista maior e ordenada. Isso é feito comparando os elementos de ambas as sublistas e intercalando-os em ordem crescente.
+        - O processo de combinação é repetido até que todas as sublistas tenham sido mescladas em uma única lista ordenada.
+    
+    3. Conquista: O algoritmo continua dividindo, ordenando e mesclando as sublistas até que a lista inteira esteja ordenada.
+
+- O Merge Sort é um exemplo notável de um algoritmo de ordenação estável, o que significa que ele preserva a ordem relativa de elementos com valores iguais. 
+  É um algoritmo EFICIENTE e tem uma complexidade de TEMPO de O(n log n) no pior caso, tornando-o adequado para ordenar grandes conjuntos de dados.
+- Uma das principais desvantagens do Merge Sort é que ele requer ESPAÇO ADICIONAL para armazenar as sublistas durante o processo de divisão e mesclagem,
+  o que pode ser um problema em conjuntos de dados muito grandes.
