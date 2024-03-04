@@ -2,11 +2,11 @@ import time
 
 def selection_sort(list):
     for i in range (len(list)):
-        min = i
+        min = i #SELECIONA O Primeiro elemento e considera-o menor
 
-        for  j in range (i + 1, len(list)):
-            if list[j] < list[min]:
-                 min = j
+        for  j in range (i + 1, len(list)): #range da lista para alem da parte ja ordenada.
+            if list[j] < list[min]: #Troca de posi
+                min = j
                 
             aux = list[min]
             list[min] = list[i]

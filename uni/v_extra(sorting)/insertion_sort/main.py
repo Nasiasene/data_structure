@@ -1,7 +1,7 @@
 import time
 
 def insertion_sort(lista):
-    for i in range(len(lista)):
+    for i in range(len(lista)-1):
         valor_atual = lista[i]
         j = i
         while (j>0) and (lista[j-1] > valor_atual):
