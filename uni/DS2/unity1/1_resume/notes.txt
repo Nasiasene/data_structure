@@ -1,0 +1,127 @@
++ Básico da Linguagem C:
+
+1. Comentários: // para comentários de uma linha e /* */ para comentários de várias linhas.
+
+2. Bibliotecas: 
+    - #include <stdio.h>   // Para entrada e saída padrão.
+    - #include <string.h>  // Biblioteca para manipulação de strings
+    - #include <stdlib.h>  // Biblioteca padrão do C com funções de utilidade geral
+
+3. Função principal: int main() {...} é onde o programa começa a ser executado.
+
+4. Variáveis: 
+   - int para números inteiros.
+   - float ou double para números decimais.
+   - char para caracteres.
+
+5. Operadores: +, -, *, /, % para operações matemáticas.
+
+6. Controle de fluxo: if, else, else if, switch para controle condicional.
+
+7. Laços de repetição: for, while, do-while para repetição de código.
+
+8. Entrada e Saída:
+   - printf() para imprimir na tela.
+   - scanf() para receber entrada do usuário.
+
+9. Ponteiros:
+   - Variáveis que armazenam endereços de memória.
+   - Usados para manipulação direta de dados, passagem de parâmetros por referência e alocação dinâmica de memória.
+   - Declaração: tipo *nome_do_ponteiro;
+   - Operador de referência (&): Obtém o endereço de memória de uma variável.
+   - Operador de derreferência (*): Acessa o valor apontado por um ponteiro.
+   - Aritmética de ponteiros: Ponteiros podem ser incrementados ou decrementados para navegar em arrays.
+   - Passagem de arrays para funções: Arrays são passados implicitamente como ponteiros.
+
+10. Arrays: 
+   - Declaração: tipo nome_do_array[tamanho];
+   - Inicialização: tipo nome_do_array[tamanho] = {valores};
+   - Acesso aos elementos: nome_do_array[indice];
+   - Tamanho do array: sizeof(nome_do_array) / sizeof(tipo_elemento);
+   - Arrays multidimensionais: Arrays podem ter mais de uma dimensão.
+   - Passagem de arrays para funções: Arrays são passados para funções como ponteiros.
+   - Limitações: Tamanho fixo e estático em C.
+
+11. Strings:
+    - Arrays de caracteres terminados com '\0'.
+    - Manipulação: Funções em string.h como strcpy(), strcat(), strlen().
+    - Leitura: scanf() ou fgets() para entrada de strings.
+
+12. Structs: 
+    - Definição: struct Nome {...};
+    - Declaração de variáveis do tipo struct.
+    - Acesso a membros: nome_da_struct.membro.
+    - Uso: Para representar estruturas de dados personalizadas, agrupando diferentes tipos de variáveis em uma única unidade.
+
+13. Alocação Dinâmica de Memória:
+    - Funções: malloc(), calloc(), realloc(), free().
+    - Uso: Permite alocar e liberar memória durante a execução do programa, útil para lidar com estruturas de dados de tamanho variável ou grande.
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
++ Resumo de Estruturas de Dados:
+
+1. Arrays:
+   - Coleção de elementos do mesmo tipo.
+   - Acesso direto aos elementos através de índices.
+   - Tamanho fixo e estático.
+   - Eficiente para acesso aleatório, mas não redimensionável.
+
+2. Listas Simplesmente Encadeadas:
+   - Cada elemento possui um ponteiro para o próximo elemento.
+   - Flexíveis em tamanho e inserção/remoção eficiente no início.
+   - Acesso sequencial aos elementos.
+
+3. Listas Duplamente Encadeadas:
+   - Cada elemento possui ponteiros para o próximo e para o anterior.
+   - Permite navegação bidirecional.
+   - Inserção e remoção eficiente em ambos os extremos.
+
+4. Pilhas (Stacks):
+   - Princípio LIFO (Last In, First Out).
+   - Operações principais: push (empilhar) e pop (desempilhar).
+   - Implementadas usando arrays ou listas encadeadas.
+
+5. Filas (Queues):
+   - Princípio FIFO (First In, First Out).
+   - Operações principais: enqueue (enfileirar) e dequeue (desenfileirar).
+   - Implementadas usando arrays ou listas encadeadas.
+
+6. Árvores:
+   - Estrutura hierárquica com um nó raiz e subárvores.
+   - Tipos: árvores binárias, árvores de busca binárias, árvores balanceadas, etc.
+   - Operações comuns: inserção, busca, remoção, travessias.
+
+7. Grafos:
+   - É um tipo de árvore.  
+   - Representação de relações entre objetos.
+   - Constituídos por vértices e arestas.
+   - Pode ser direcionado ou não direcionado.
+
+8. Hashing:
+   - Técnica de mapeamento de chaves para índices usando uma função hash.
+   - Arrays associativos eficientes para busca rápida.
+   - Possibilidade de colisões, que são tratadas por diferentes métodos de resolução.
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Resumo de Métodos de Busca em Estruturas de Dados em C:
+
+1. Busca Linear:
+   - Percorre sequencialmente todos os elementos da estrutura de dados.
+   - Adequado para estruturas não ordenadas.
+   - Complexidade O(n), onde n é o número de elementos na estrutura.
+
+2. Busca Binária:
+   - Aplicável apenas em estruturas ordenadas (arrays ou árvores de busca binária).
+   - Divide repetidamente a estrutura de dados pela metade, descartando metade dos elementos a cada iteração.
+   - Complexidade O(log n), onde n é o número de elementos na estrutura.
+
+3. Busca em Hash:
+   - Usa uma função hash para mapear chaves para índices em uma tabela hash.
+   - Geralmente oferece uma busca rápida em tempo médio constante O(1), mas pode ter casos de colisão.
+   - Para resolver colisões, são utilizadas técnicas como encadeamento ou endereçamento aberto.
