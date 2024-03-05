@@ -26,7 +26,8 @@
         - Então metade dos nós do primeiro nível fariam parte do segundo nível, metade dos nós do segundo nível fariam parte do terceiro nível e assim por diante, até que a referida metade fosse reduzida a zero.
     - Nós em níveis elevados de tal lista permitem saltar alguns nós em níveis inferiores durante uma operação de busca, inserção ou remoção.
 
-    - O nível de um nó de uma lista com saltos é o número de ponteiros que ele contém menos um.
+    - Cada nó da lista possui um array de ponteiros.
+    - O nível de um nó de uma lista com saltos é o número de ponteiros que ele contém -1. 
 
     - O nível de uma lista com saltos corresponde ao nível do nó de maior nível da lista.
         - O nível máximo esperado (altura) de uma lista com saltos contendo n nós é O(log n).
