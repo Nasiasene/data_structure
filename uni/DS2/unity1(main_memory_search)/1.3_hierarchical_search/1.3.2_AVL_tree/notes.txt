@@ -1,0 +1,92 @@
++ Árvores AVL
+
+    - Uma árvore AVL é uma árvore binária de busca na qual as alturas de quaisquer duas subárvores nunca diferem em mais de 1.
+
+    - O custo temporal da maioria das operações com árvores binárias de busca é θ(a), em que a é a altura da árvore, que pode se tornar θ(n), em que n é o número de nós, quando a árvore é inclinada.
+
+    - Árvores AVL garantem que suas alturas são sempre log n após operações de inserção ou remoção.
+        - Portanto, operações sobre árvore AVL têm custo temporal θ(log n).
+
+    - O balanceamento de um nó é definido como a altura de sua subárvore esquerda menos a altura de sua subárvore direita.
+        - Cada nó de uma árvore AVL tem balanceamento –1, 0 ou 1, conforme sua subárvore esquerda tem altura menor, igual ou maior o que a altura de sua subárvore direita.
+
+
+    - Desbalanceamento Devido a Inserção:
+        - Após um nó ser inserido, apenas os nós que estão no caminho de inserção têm suas subárvores alteradas.
+            - Além disso, apenas o primeiro nó de baixo para cima que se tornou desbalanceado no caminho inverso de inserção precisa ser rebalanceado.
+
+        - Para manter uma árvore AVL balanceada após uma inserção é necessário transformar a árvore, de tal modo que:
+            • O caminhamento em ordem infixa na árvore resultante seja igual ao da árvore original – deve continuar sendo uma árvore de busca.
+                - Caminhamento em infixa:
+                    - Visita primeiro o filho a esquerda, depois a raiz e por ultimo o filho a direita.
+                    - Começa com o filho mais a esquerda.
+                    - Termina com o elemento mais a direita.
+                    - PRINT NO MEIO DE TUDO.
+            • A árvore resultante permaneça balanceada segundo o critério AVL – continua sendo uma árvore AVL.
+
+        
+        - Caso 1: Esquerda-esquerda [ROTACIONA A DIREITA] (tudo desbalanceado na esquerda)
+            - Decorrente de uma inserção na subárvore esquerda de um nó que é filho esquerdo de outro nó cujo balanceamento é igual a 1 (antes da inserção). 
+
+        - Caso 2: Direita-direita [ROTACIONA ESQUERDA] (tudo desbalanceado na direita)
+            - Ocasionado por uma inserção na subárvore direita de um nó que é filho direito de outro nó cujo balanceamento é igual a –1 (antes da inserção).
+        
+        - Caso 3: Esquerda-direita [rotaciona em baixo na esquerda e depois direita] (filhos levemente desbalanceados para direita e pai desbalanceado para esquerda)
+            - Ocasionado por uma inserção na subárvore direita  de um nó que é filho esquerdo de outro nó cujo balanceamento é igual a 1 (antes da inserção).
+
+        - Caso 4: Direita-esquerda [rotaciona em baixo na direita e depois esquerda] (filhos levemente desbalanceados para esquerda e pai desbalanceado para direita)
+            - Ocasionado por uma inserção na subárvore esqeurda  de um nó que é filho direito de outro nó cujo balanceamento é igual a 1 (antes da inserção).
+
+
+        - Algoritmo de inserção em arvore avl:
+            - Entrada: Nó
+            - Entrada/Saída: Arvore AVL.
+            - Saída: valor informando se deu certo.
+            1. Se a árvore esta vazia, armazene o nó como raiz.
+            2. Se a chave do nó for menor do que qa raiz:
+                2.1. Se a subárvore a esquerda estiver vazia, retorne a árvore com o filho(nó) a esquerda da raiz.
+                2.2. Caso contrário repita o mesmo procedimento a partir do passo 2.
+            3. Se a chave do nó for maior do que qa raiz:
+                2.1. Se a subárvore a direita estiver vazia, retorne a árvore com o filho(nó) a direita da raiz.
+                2.2. Caso contrário repita o mesmo procedimento a partir do passo 2.
+            4. Atualiza altura da árvore.
+            5. Obtem o balanceamento da árvore (esq-dir)
+            6. Se o balanceamento > 1:
+                6.1. Se o novo nó for menor do que a chave da raiz da subarvore esquerda, faca uma rotação a direita.
+                6.2. Se o novo nó for maior do que a chave da raiz da subarvore esquerda:
+                    6.2.1. Efetue uma rotação a esquerda na subarvore esquerda
+                    6.2.2. Efetue uma rotação a direita na arvore
+            7. Se balanceamento < -1:
+                7.1. Se o novo nó for maior do que a chave da raiz da subarvore direita, faca uma rotação a esquerda.
+                7.2. Se o novo nó for menor do que a chave da raiz da subarvore direita:
+                    7.2.1. Efetue uma rotação a direita na subarvore dirita
+                    7.2.2. Efetue uma rotação a esquerda na arvore
+
+
+    - Desbalanceamento Devido a Remoção:
+        - A análise dos casos de desbalanceamentos de árvores AVL em virtude e remoção é semelhante à análise para inserção, mas as correções esses desbalanceamentos são bem mais complicadas porque um dado desbalanceamento pode se propagar no caminho inverso de remoção até a raiz da árvore.
+    
+        - São também quatro os possíveis casos, inclusive com mesmos nomes e correções.
+
+        - Mas não é suficiente corrigir o balanceamento do primeiro nó que era ancestral do nó removido que se torna desbalanceado em virtude dessa remoção.
+            - Todos os ancestrais podem ter sido desbalanceados e precisam de análise.
+
+
+        - Caso 1: Esquerda-esquerda 
+            - Esse desbalanceamento é igual ao desbalanceamento de idêntica denominação que ocorre durante inserção, mas a causa aqui é uma remoção numa subárvore direita (Em vez de uma inserção numa subárvore esquerda).
+
+        - Caso 2: Direita-direita  
+            - Esse desbalanceamento é idêntico ao desbalanceamento de mesma denominação que ocorre durante inserção, porém a causa aqui é uma remoção numa subárvore esquerda.
+        
+        - Caso 3: Esquerda-direita  
+            - Esse desbalanceamento é idêntico ao desbalanceamento de mesma denominação que ocorre durante inserção (Mas a causa aqui é devido a uma remoção numa subárvore direita).
+
+        - Caso 4: 
+            - Esse desbalanceamento é idêntico ao desbalanceamento de mesma denominação que ocorre durante inserção, porém a causa aqui é uma remoção numa subárvore esquerda.
+
+        
+        - Algoritmo de Remoção em arvore avl:
+            - Entrada: Nó
+            - Entrada/Saída: Arvore AVL.
+            - Saída: valor informando se deu certo.
+            
