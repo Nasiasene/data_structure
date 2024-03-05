@@ -1,0 +1,152 @@
++ Lista com Saltos
+
+- Listas encadeadas possuem como defeito inerente só permi1rem busca sequencial. 
+    • Ordenar elementos na lista pode acelerar a busca, mas uma busca sequencial ainda é requerida.
+    • E ainda terá o custo temporal de O(n).
+
+- Lista com saltos é uma variação da lista encadeada que utiliza múltiplos níveis de apontadores para "saltar" sobre uma parte dos elementos, diminuindo assim o tempo de busca em comparação com a busca linear.
+
+- A estrutura de uma Skip List consiste em vários níveis de sublistas, onde o nível superior é uma lista de referências aos elementos da lista abaixo. 
+- Cada nível subsequente possui menos elementos do que o nível anterior.
+- O elemento no nível superior é referenciado no nível inferior com uma certa probabilidade. Isso significa que alguns elementos podem ser acessados diretamente a partir de níveis superiores, pulando uma quantidade variável de elementos.
+
+- A principal vantagem das Listas com Saltos é que elas permitem operações de busca, inserção e exclusão em tempo médio O(log n), torna as Skip Lists eficientes para muitas aplicações onde as operações de busca são frequentes.
+
+- Cada nó da lista possui um array de niveis. 
+- É este array que faz as ligações entre diferentes níveis.
+
+-Para definir a quantidade de níveis é feita um "lançamento de moedas".
+- Além disso, a aleatoriedade introduzida na estrutura pode dificultar um pouco a análise teórica de seu desempenho em comparação com estruturas de dados determinísticas, como as árvores de busca binária balanceadas.
+
+- Em resumo, as Listas com Saltos são uma estrutura de dados flexível e eficiente para operações de busca, inserção e exclusão em listas ordenadas, especialmente em cenários onde o desempenho é crucial.
+
+- Listas com Saltos (Skip List). 
+    - Consiste numa lista encadeada ORDENADA dividida em níveis.
+    - Todos os nós da lista fariam parte do primeiro nível.
+        - Então metade dos nós do primeiro nível fariam parte do segundo nível, metade dos nós do segundo nível fariam parte do terceiro nível e assim por diante, até que a referida metade fosse reduzida a zero.
+    - Nós em níveis elevados de tal lista permitem saltar alguns nós em níveis inferiores durante uma operação de busca, inserção ou remoção.
+
+    - O nível de um nó de uma lista com saltos é o número de ponteiros que ele contém menos um.
+
+    - O nível de uma lista com saltos corresponde ao nível do nó de maior nível da lista.
+        - O nível máximo esperado (altura) de uma lista com saltos contendo n nós é O(log n).
+
+    - Cabeça e sentinela são nós especiais.
+        - O nó cabeça é o nó a partir do qual começam todas as operações sobre uma lista com saltos.
+            - O conteúdo armazenado é ignorado.
+        - Por sua vez, o nó sentinela representa um valor que é maior do que o valor de qualquer chave armazenada na lista, representando seu final.
+
+    - Uma lista com saltos real é aquela que relaxa a exigência de que cada nível tenha exatamente metade dos itens do nível anterior.
+        • Em vez disso, usa uma abordagem de construção probabilísAca, de modo que, se o número de elementos for suficientemente grande, ela seja uma lista com saltos quase perfeita.
+            • Em vez de requerer que exatamente 50% dos elementos da lista faça parte do segundo nível da lista, uma lista com saltos real requer que essa porcentagem seja apenas aproximada.
+            • O mesmo critério de aproximação se aplica aos seus demais níveis, de maneira que o número de nós esperados em cada nível seja aproximadamente igual àquele obtido numa lista com saltos perfeita.
+
+    - Uma lista com saltos real é uma estrutura de dados probabilística, pois ela é mantida de acordo com as leis da teoria das probabilidades.
+        • Uma mesma sequência de inserções pode produzir diferentes estruturas dependendo dos resultados de lançamentos de uma moeda.
+        • Essa randomização permite algum desequilíbrio.
+            • Mas, quando o número de elementos na lista é suficientemente grande, o comportamento esperado de uma lista com saltos real é igual àquele que seria obtido com listas com saltos perfeitas.
+
+
+- Lista com Saltos - Busca:
+
+    - Uma busca numa lista com saltos inicia em seu nível mais alto e que contém o menor número de nós.
+        - Se a chave de busca não for encontrada nesse nível, tenta-se encontrá-la no nível imediatamente abaixo, e assim por diante.
+    - Desse modo, uma busca numa lista com saltos se assemelha a uma busca binária numa lista indexada ordenada.
+
+    - Basicamente:
+        1. Comece do topo: Você começa a busca a partir do nível mais alto da skip list e vai descendo até o nível mais baixo.
+        2. Mova-se para frente e para baixo: Em cada nível, você avança para o próximo nó enquanto o valor do nó seguinte for menor que o valor que você está procurando. Se for maior, você desce um nível e repete o processo.
+        3. Quando encontrar um limite ou o valor desejado: Quando encontrar um valor que é maior do que o valor que você está procurando ou quando atingir o nível mais baixo, você volta para o nível anterior e continua a busca.
+        4. Repita até encontrar ou chegar ao nível mais baixo: Você repete esse processo até encontrar o valor desejado ou até atingir o nível mais baixo da skip list.
+
+
+    - Algoritmo:
+        - Entrada: Uma lista com saltos e uma chave de busca
+        - Saída: O valor associado à primeira chave da tabela que casa com a chave de busca ou um valor indicando que a chave não foi encontrada.
+
+        1. Atribua à i o maior nível da lista
+        2. Faça p apontar para a cabeça da lista
+        3. Enquanto i ≥ 0 faça:
+            3.1 Enquanto o próximo nó não é o nó sentinela e a chave desse nó é menor do que a chave de busca faça p apontar para o próximo nó
+            3.2 Decremente i
+        4. Faça p apontar para o próximo nó
+        5. Se p estiver apontando para um nó cuja chave é igual à chave de busca,  retorne o valor associado à chave do elemento encontrado
+        6. Retorne um valor que indique que a chave de busca não foi encontrada
+
+
+- Lista com Saltos - Inserção:
+
+    - Para determinar o nível de um novo nó (e o número de ponteiros requeridos por ele), simulam-se lançamento de uma moeda usando um gerador de números aleatórios.
+        • Enquanto os lançamentos da moeda resultam na mesma face, o nível do nó é incrementado.
+        • Quando o resultado de um lançamento resulta numa face diferente das anteriores, encerra-se esse procedimento e tem-se como resultado o nível do nó a ser inserido.
+
+    - Basicamente:
+        1. Localize a posição de inserção: Assim como na busca, você começa a inserção a partir do topo da skip list e desce até o nível mais baixo para localizar a posição onde o novo elemento deve ser inserido.
+        2. Escolha a altura do novo nó: A altura do novo nó (o número de níveis que ele terá) é determinada probabilisticamente. Isso é feito gerando um número aleatório para cada nível possível e determinando a altura do nó com base no número de "saltos" que ele fará. Normalmente, a probabilidade de um nó ter uma altura maior diminui à medida que a altura aumenta.
+        3. Insira o novo nó em cada nível necessário: Você insere o novo nó em cada nível onde ele deve aparecer, atualizando os ponteiros dos nós adjacentes para "pular" sobre o novo nó.
+        4. Reorganize a estrutura, se necessário: Após a inserção do novo nó, pode ser necessário reorganizar a skip list para manter suas propriedades probabilísticas. Isso pode envolver a adição de novos níveis à lista se o novo nó tiver uma altura maior do que a altura atual máxima da skip list.
+        5. Atualize a altura máxima da skip list, se necessário: Se o novo nó tiver uma altura maior do que a altura máxima atual da skip list, a altura máxima é atualizada para corresponder à altura do novo nó.
+
+    - Algoritmo:
+        - Entrada/Saída: Uma lista com saltos
+        - Entrada: O conteúdo de um novo nó
+        - Saída: Um valor informando se ocorreu inserção
+                
+        1. Crie um array auxiliar de ponteiros (aux) para nós com um número de elementos igual ao nível máximo da lista mais 1
+        2. Atribua à i o maior nível da lista
+        3. Faça p apontar para a cabeça da lista
+        4. Enquanto i ≥ 0 faça:
+            4.1 Enquanto o próximo nó não é o nó sentinela e a chave desse nó é menor do que a chave de busca faça p apontar para o próximo nó
+            4.2 Atribua p ao elemento aux[i]
+            4.3 Decremente i
+        5. Faça p apontar para o próximo nó
+        6. Se p estiver apontando para um nó cuja chave é igual à chave de busca, retorne um valor indicando que não houve inserção (chave primária)
+        7. Atribua 0 ao nível (nv) do novo nó
+        8. Enquanto o lançamento da moeda resultar em cara (ou coroa) e nv for menor do que o nível máximo da lista, incremente nv
+        9. Crie um novo nó com o conteúdo recebido como entrada e um número de ponteiros igual a nv + 1
+        10. Se o nível do novo nó for maior do que o nível corrente da lista:
+            10.1 Faça os ponteiros dos níveis excedentes do novo nó apontarem para o sentinela
+            10.2 Torne o nível corrente da lista igual ao nível do novo nó
+        11. Faça o novo nó apontar para os nós para os quais os antecessores dele apontavam
+        12. Faça os antecessores do novo nó apontarem para ele
+        13. Retorne um valor que indique que a inserção foi bem-sucedida
+
+
+- Lista com Saltos - Remoção
+
+    - A remoção de um nó numa lista com saltos ocorre normalmente como em outras listas encadeadas, mas deve-se levar em consideração que pode ser necessário ajustar vários ponteiros para refletir a remoção adequadamente.
+        • Esse procedimento pode intrigar. Afinal, ele não é capaz de destruir uma lista com saltos?
+            • A resposta é: sim, mas apenas se a lista com saltos for considerada perfeita.
+            • Mas não é isso que ocorre na prática.
+
+    - Basicamente:
+        1. Localize o elemento a ser removido: Assim como na busca, você começa a remoção a partir do topo da skip list e desce até o nível mais baixo para localizar o elemento que deseja remover.
+        2. Mova-se para frente e para baixo: Assim como na busca, você avança para o próximo nó em cada nível enquanto o valor do nó seguinte for menor que o valor que você está procurando. Se for maior, você desce um nível e continua o processo até encontrar o elemento ou atingir o nível mais baixo.
+        3. Remova o elemento: Quando encontrar o elemento desejado, você o remove da skip list. Isso envolve atualizar os ponteiros dos nós adjacentes para "pular" sobre o nó que está sendo removido.
+        4. Repita até atingir o nível mais baixo: Se o elemento a ser removido estiver presente em vários níveis da skip list, você repete o processo de remoção em todos os níveis onde ele aparece.
+        5. Reorganize a estrutura, se necessário: Depois de remover o elemento, pode ser necessário reorganizar a skip list para manter suas propriedades probabilísticas. Isso pode envolver a remoção de níveis superiores que não têm mais elementos ou ajustar os ponteiros dos nós para manter um equilíbrio na estrutura.
+
+    - Algoritmo:
+        - Entrada/Saída: Uma lista com saltos
+        - Entrada: A chave do nó a ser removido
+        - Saída: Um valor informando se ocorreu remoção
+
+        1. Crie um array auxiliar de ponteiros para nós (aux) com um número de elementos igual ao nível máximo da lista mais 1
+        2. Atribua à i o maior nível da lista
+        3. Faça p apontar para a cabeça da lista
+        4. Enquanto i ≥ 0 faça:
+            4.1 Enquanto o próximo nó não é o nó sentinela e a chave desse nó é menor do que a chave de busca
+                4.1.1 Faça p apontar para o próximo nó
+                4.1.2 Armazene no array aux o endereço do último nó visitado no nível i antes que se encontre o nó a ser removido
+            4.2 Decremente i
+        5. Se a chave do próximo nó adiante daquele para o qual p está apontando for diferente da chave de busca, retorne um valor informando que a operação foi malsucedida
+        6. Usando o array aux, faça os antecessores do nó removido apontarem para o sucessor dele
+        7. Se for necessário, ajuste o nível da lista de modo que não exista nenhum ponteiro que emane da cabeça e termine no nó sentinela
+        8. Retorne um valor indicando o sucesso da operação
+
+
+- Lista com Saltos - Análise:
+
+    1. Inserção: O(log n)
+    2. Remoção:  O(log n)
+    3. Busca:    O(log n)
