@@ -1,0 +1,75 @@
++ Árvore afunilida
+
+- É uma estrutura de dados em árvore binária auto-ajustável.
+- Usada principalmente em aplicações onde o acesso a certos elementos é mais frequente do que outros. 
+- Ela mantém a propriedade de árvore de busca binária, onde os elementos menores são mantidos à esquerda e os elementos maiores à direita, mas também realiza operações de reorganização para otimizar o acesso aos elementos mais frequentemente acessados.
+
+- NÃO TEM FOCO EM BALANCEAMENTO.
+
+- relacionado a memória CACHE.
+
+- A característica chave de uma árvore afunilada é a operação de "splay"(afunilamento), que é realizada após cada operação de busca, inserção ou remoção.
+    - A operação de splay move o nó acessado para a raiz da árvore, ajustando a estrutura da árvore de modo a reduzir a altura e melhorar o desempenho para futuras operações.
+    - Isso significa que os nós mais frequentemente acessados serão movidos para posições mais próximas à raiz, reduzindo o tempo médio de acesso.
+
+- As árvores afuniladas oferecem uma complexidade de tempo amortizada de O(log n) para operações de busca, inserção e remoção, onde "n" é o número de elementos na árvore.
+    - No entanto, é importante notar que em casos extremos, a operação de splay pode resultar em uma complexidade de tempo pior, embora seja raro.
+
+-- Em resumo, as árvores afuniladas são uma estrutura de dados eficiente para aplicativos que requerem acesso rápido e frequentemente alterado aos elementos, como caches, sistemas de indexação e implementações de dicionários.
+
+
+- A denominação afunilada vem do fato de, após alguma operação, um elemento ser movido para níveis mais altos e mais estreitos (afunilados) da árvore.
+    • Por meio de rotações, o último elemento acessado na árvore ou um de seus parentes é movido para cima e se torna a nova raiz.
+
+- O resultado que se pretende alcançar com árvores afuniladas é o mesmo pretendido com árvores balanceadas (como as AVL):
+    • Obter melhor desempenho em operações de busca, inserção e remoção.
+        • Mas, aqui, esse obje-vo não é alcançado por balanceamento.
+        • No pior caso, inclusive, pode ser equivalente as listas encadeadas.
+
+- Cada vez que se acessa um nó, executa-se uma alteração radical na árvore, movendo-se o nó recentemente acessado para cima, de modo que ele se torna a raiz.
+    • Desse modo, nós que são frequentemente acessados são elevados e permanecem próximos da raiz. Nós ina;vos, por outro lado, serão gradativamente colocados cada vez mais longe da raiz.
+
+-- Afunilamento:
+    - Cada operação de busca, inserção ou remoção é combinada com uma operação básica: o afunilamento de um nó.
+    - Afunilar um nó significa promovê-lo a raiz e, nesse processo, outros nós podem também ocupar níveis mais elevados na árvore.
+    - Um nó a ser afunilado é denominado nó-alvo ou simplesmente alvo.
+    - Uma operação de afunilamento de um nó consiste numa sequência de rotações, de modo que, a cada rotação, o nó-alvo passa para um nível mais elevado na árvore.
+
+
+    - Caso 1: O Alvo É Filho da Raiz (Zig e Zag (direita, esquerda))
+        • O pai Q de R (o alvo do afunilamento) é a raiz da árvore e uma rotação simples à direita ou à esquerda é suficiente.
+        -  O tipo de rotação depende do fato de R ser filho esquerdo (que requer rotação direita) ou direito (que requer rotação esquerda) de Q.
+
+    - Caso 2: Configuração Homogênea (Zig-zig e Zag-zag)
+        - Caso 2A: R é filho esquerdo de Q, que é filho esquerdo de P(raiz).
+            • Nessa situação, são efetuadas duas rotações à direita, denominadas em conjunto como zig-zig.
+        - Caso 2B: R é filho direito de Q, que é filho direito de P(raiz).
+            • Nesse caso, são efetuadas duas rotações à esquerda, denominadas zag-zag.
+
+    - Caso 3: Configuração Heterogênea (Zag-zig e Zig-zag)
+        - Caso 3A: R é filho direito de Q, que é filho esquerdo de P(raiz).
+            • O afunilamento de R requer uma rotação esquerda (zag) de R em torno de Q e, em seguida, uma rotação direita (zig) de R em torno de P.
+            • Esse tipo de rotação é denominado zag-zig.
+        - Caso 3B: R é filho esquerdo de Q, que é filho direito de P.
+            • O afunilamento nesse caso requer uma rotação direita (zig) de R em torno de Q e, em seguida, uma rotação esquerda (zag) de R sobre P.
+            • Esse tipo de rotação é denominado zig-zag.
+
+    
+    -- Afunilamentos Ascendente e Descendente:
+
+        - O tipo de afunilamento descrito até agora é denominado afunilamento ASCENDENTE.
+            - Ele parte do nó alvo que pode se encontrar num nível inferior da árvore e sobe até a raiz que está no nível mais elevado da árvore.
+            - Implementação não trivial, mas um pouco mais simples de forma recursiva.
+                • Necessários ponteiros para o pai em cada nó.
+            - Ao contrário do afunilamento descendente, nesse método, após uma operação, o pai do nó acessado é movido para a raiz, em vez do próprio nó.
+            - O objetivo é otimizar o acesso aos nós ancestrais do nó acessado, trazendo-os para posições mais próximas da raiz.
+            - Isso é feito para melhorar o acesso futuro a outros nós na mesma região da árvore, beneficiando-se da localidade espacial dos acessos.
+
+        - Outro tipo de afunilamento, denominado afunilamento DESCENDENTE, afunila a árvore à medida que seus nós são visitados na busca pelo nó a ser afunilado.
+            - Se sempre afunila, por que não fazer isso enquanto busca?
+                • Sem necessidade de ponteiros adicionais e um pouco mais simples de implementar.
+            - Nesse método, após uma operação, como uma busca, inserção ou remoção, o nó acessado é movido para a raiz da árvore por meio de uma sequência de rotações, de modo que o nó acessado torna-se a nova raiz.
+            - O objetivo é trazer o nó acessado para a raiz, reduzindo a altura do caminho percorrido nas operações subsequentes.
+            - O foco principal está em otimizar o acesso ao nó atual, trazendo-o para o topo da árvore.
+
+        - Em resumo, o afunilamento descendente visa otimizar o acesso ao nó atual, enquanto o afunilamento ascendente visa otimizar o acesso aos nós ancestrais do nó atual. Ambos os métodos têm o objetivo comum de reduzir o tempo de acesso médio aos nós frequentemente utilizados em árvores de busca binária auto-ajustáveis.
