@@ -1,0 +1,99 @@
++ Busca Hierárquica em Memória Principal
+
+- Ao invés de listas, a busca hierárquica é baseada e organizadas como árvores.
+    • Árvores Binárias Ordinárias de Busca
+    • Árvores Binárias Balanceadas de Busca (Árvores AVL)
+    • Árvores Afuniladas
+
+
+------------------------------------------------------------------------
+
+
+- Árvores Binárias Ordinárias de Busca
+
+    - Uma árvore binária de busca é um tipo de árvore binária usado para implementar tabelas de busca e que satisfaz as seguintes propriedades:
+        • Para todo nó X, se sua subárvore esquerda não for vazia, todas as chaves que se encontram nessa subárvore são menores do que a chave do nó X.
+        • Para todo nó X, se sua subárvore direita não for vazia, todas as chaves que se encontram nessa subárvore são maiores do que a chave do nó X.
+
+    - Três tipos de caminhamento em AVBin mais comuns são:
+        - Caminhamento em ordem prefixa (pré-ordem);
+        - Caminhamento em ordem infixa (in-ordem);
+        - Caminhamento em ordem sufixa (pós-ordem).
+
+        *- Ideia geral: Visitar a raiz, e Caminhar em suas sub-árvores esquerda e direita.
+
+    - Uma árvore binária é uma árvore binária de busca se, e somente se, um caminhamento em ordem infixa acessa as chaves armazenadas nessa árvore em ordem crescente.
+        -- Caminhamento em In-ordem:
+            - Visita primeiro o filho a esquerda, depois a raiz e por ultimo o filho a direita.
+            - Começa com o filho mais a esquerda.
+            - Termina com o elemento mais a direita.
+            - PRINT NO MEIO DE TUDO.
+
+    - Árvores binárias de busca ordinárias raramente são usadas na prática.
+        - O programador só deve utilizar tabelas de busca implementadas como árvores binárias de busca ordinárias quando tiver absoluta certeza que o pior caso jamais ocorrerá.
+    
+    - Árvores binárias de busca ordinárias são exploradas mais por razões didáticas do que práticas.
+        - São mais fáceis de entender e implementar do que aquelas que são usadas na prática.
+
+
+    - INSERÇÃO:
+        - Entrada:Nó
+        - Entrada/Saída: Arvore bin de busca.
+        1. Se a árvore esta vazia, armazene o nó como raiz.
+        2. Se a chave do nó for menor do que qa raiz:
+            2.1. Se a subárvore a esquerda estiver vazia, retorne a árvore com o filho(nó) a esquerda da raiz.
+            2.2. Caso contrário repita o mesmo procedimento a partir do passo 2.
+        3. Se a chave do nó for maior do que qa raiz:
+            2.1. Se a subárvore a direita estiver vazia, retorne a árvore com o filho(nó) a direita da raiz.
+            2.2. Caso contrário repita o mesmo procedimento a partir do passo 2.
+
+    - BUSCA:
+        - Entrada: Árvore e uma key
+        - Saída: valor associado a key ou valor informando que a key não foi achada.
+        1. Faça um ponteiro p apontar para raiz da árvore.
+        2. Enquanto p != NULL:
+            2.1. Se a key for igual àquela do nó apontado, retorne o valor do nó.
+            2.2. Se a key for menor àquela do nó apontado, faça p apontar para o filho a esquerda do nó.
+            2.3. Se a key for maior àquela do nó apontado, faça p apontar para o filho a direita do nó.
+        3. Retorne um valor informando que a chave não foi encontrada.
+
+    - REMOÇÃO:
+        - Três casos devem ser levados em consideração de acordo com o número de filhos do nó a ser removido:
+            • Caso 1: O nó a ser removido não possui filhos.
+            • Caso 2: O nó a ser removido possui apenas um filho.
+            • Caso 3: O nó a ser removido possui dois filhos.
+
+        - Entrada: A key do nó a ser removido
+        - Entrada/Saída: Arvore bin de busca.
+        1. Efetue a busca do nó utilizando o algoritmo de busca.
+        2. Se a chave não foi encontrada, informe.
+        3. Se o nó a ser removido é uma folha, simplesmente o remova.
+        4. Se o nó a ser removido tem somente um filho, substitua o nó pelo seu filho e o remova.
+        5. Se o nó possuir dois filhos:
+            5.1. Pegue o maior nó a esquerda do pai ou o menor nó a direita e guarde seu valor. 
+            5.2. Remova este nó.
+            5.3. Substitua o o conteúdo do nó que seria removido pelo novo nó.
+
+
+    - ROTAÇÕES:
+        - Rotação é uma operação que envolve um nó de uma árvore binária de busca e um dos seus filhos, que pode ser o filho esquerdo ou o filho direito.
+        - O objeKvo prático do uso de rotações é reduzir a altura de uma árvore binária de busca ao mesmo tempo que mantém suas propriedades como árvore de busca.
+            - Em geral, uma operação de rotação eleva um nó (e seus filhos) para o próximo nível superior da árvore e abaixa outro nó para o próximo nível inferior da árvore.
+        - Pode ser direita ou esquerda.
+
+        • Rotação direita:
+            1. A raiz passa a ocupar o lugar ora ocupado por seu filho direito.
+            2. O filho direito do antigo filho esquerdo da raiz (pivô) torna-se o filho esquerdo da raiz.
+            3. O filho esquerdo da raiz (pivô) ocupa o lugar dantes ocupado pela raiz.
+            4. O ponteiro p que apontava para a antiga raiz passa a apontar para a nova raiz.
+
+        • Rotação esquerda
+            1. A raiz ocupa o lugar do filho esquerdo.
+            2. O filho esquerdo do filho direito da raiz (pivô) torna-se o filho direito da raiz.
+            3. O filho direito da raiz (pivô) ocupa o antigo lugar da raiz.
+            4. O ponteiro p que apontava para antiga raiz passa a apontar para a nova raiz.
+
+    - BALANCEAMENTO 
+        - O balanceamento de uma árvore binária de busca é medido pela diferença entre as alturas de quaisquer duas de suas subárvores.
+        - Uma árvore binária perfeitamente balanceada é aquela na qual cada  nó possui subárvores de mesma altura.
+            • Esse critério de balanceamento é rígido demais para ser u5lizado na prá5ca e precisa ser relaxado.
