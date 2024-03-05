@@ -1,0 +1,103 @@
+* Busca refere-se à atividade de procurar alguma informação num conjunto de dados a partir de dados incompletos relacionados com a informação procurada.
+
++ Definições:
+
+- REGISTRO: é uma coleção de dados relacionados entre si e agrupados numa unidade (elemento).
+    - Uma coleção de registros é denominada tabela ou arquivo.
+        • O conjunto de todos os registros dos alunos de uma universidade consstitui uma TABELA.
+        • Quando utlizada em OPERAÇÕES DE BUSCA, inserção e remoção de registros, ela também é denominada TABELA DE BUSCA.
+
+- CHAVE: é um componente de um registro utlizado numa operação de busca (key).
+    • A chave é primária quando cada valor é único, como a matrícula de um aluno.
+    • Quando os valores podem se repetir a chave é secundária, como o nome de um aluno. (Uma tabela de busca que permite buscas com chaves secundárias é denominada dicionário)
+
+- TABELA DE BUSCA: é um conjunto de pares chave/valor, de modo que o valor pode ser obtido a partir da chave a ele associada (lista).
+    • Cada par chave/valor de uma tabela de busca é um elemento dessa tabela.
+    • Podem ser de quaisquer tipos.
+        • Tipicamente o valor é o próprio registro associado à chave; ou
+        • Pode ser a posição que o registro se encontra num arquivo de dados.
+
+    - ALGORITMO DE BUSCA: tenta encontrar um registro numa tabela de busca cuja chave coincida com o valor recebido como entrada pelo algoritmo.
+        • Esse valor de entrada deve ser do mesmo tipo das chaves na tabela e é chamado chave de busca.
+        • Quando a chave de busca é encontrada na tabela, diz-se que houve um casamento entre a chaves.
+        • Uma busca é bem-sucedida quando ocorre o casamento entre as chaves.
+            • Diz-se que o registro foi recuperado – ocorreu recuperação de informação.
+            • Quando nenhum registro casa com a chave, diz-se que a busca foi malsucedida.
+
+        - Quando o valor associado a cada chave numa tabela de busca é o próprio registro, diz-se que essa é uma chave interna.
+        - Quando o valor associado a cada chave numa tabela de busca é um indicador de um local em outra tabela ou arquivo que contém os registros, diz-se que essa chave é externa.
+            • Nesse caso, a busca primeiro retorna o endereço ou índice do registro e, depois, usa-se esse endereço ou índice para acessar de fato o registro.
+
+        - Numa busca interna, a tabela de busca se encontra totalmente armazenada em memória principal.
+            • A eficiência dos algoritmos é avaliada usando-se a análise assintótica.
+
+        - Numa busca externa, a tabela de busca se encontra totalmente armazenada em um meio de armazenamento externo.
+            • Os algoritmos de busca devem minimizar o número de acessos ao meio de armazenamento externo.
+
+    - Existem TIPOS DE BUSCA que são específicos para determinadas aplicações:
+        • Busca de INTERVALO: tenta recuperar ou contar todos os registros(elementos) que se encontram no intervalo entre dois valores limites.
+        • Busca DEDILHADA: começa do ponto em que uma busca anterior terminou.
+        • Busca de PISO: tenta encontrar a maior chave que é menor do que a chave recebida como entrada (valor atrás). Se a referida chave for encontrada, ela é seu próprio piso.
+        • Busca de TETO: tenta encontrar a menor chave que é maior do que a chave recebida como entrada (valor a frente). Se a referida chave for encontrada na tabela, ela é seu próprio teto.
+        • Busca de MENOR chave: encontra a menor chave armazenada. Só falha se atabela de busca estiver vazia.
+        • Busca de MAIOR chave: encontra a maior chave armazenada numa tabela de busca não vazia.
+
+    - Organização de tabela refere-se às estruturas de dados usadas na implementação de uma tabela de busca.
+        • Por exemplo: listas, árvores ou tabelas de dispersão.
+        • Tipicamente, a organização de uma tabela reflete a técnica de busca a ser usada e vice-versa.
+    • Diferentes implementações de operações da tabela de busca diferem em eficiência de uso de tempo e espaço, que pode depender do conjunto de operações usadas por um programa-cliente (ou aplicativo).
+        • Normalmente escolhe-se aquela com maior eficiência para as operações mais utilizadas e menor eficiência para operações raramente utilizadas.
+
+    - Uma implementação de tabela de busca deve prover pelo menos as operações de inserção e remoção.
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
++ Busca Sequencial Simples:
+
+- É a forma mais simples de busca e aplica-se a tabelas organizadas de modo linear.
+- Nesse tipo de busca, cada chave, a partir do início da tabela, é comparada à chave de busca e a busca continua até que seja encontrada a chave ou até que o final da tabela de busca seja atingido.
+
+- Busca sequencial é a única forma de encontrar algum registro numa tabela não ordenada.
+    • Mesmo que os registros sejam ordenados de acordo com um campo que não seja a chave de busca, eles serão considerados desordenados do ponto de vista das suas chaves.
+    • Se estiver ordenado, existem meios mais eficientes de busca do que a busca sequencial.
+
+- ALGOTIRMO:
+    - Entrada: Uma tabela indexada ou encadeada com n elementos e uma chave de busca.
+    - Saída: O valor associado à primeira chave da tabela que casa com a chave de busca ou um valor indicando que a chave não foi encontrada.
+
+    1. Considere como elemento corrente o primeiro elemento da tabela.
+    2. Enquanto o último elemento da tabela não tiver sido visitado, faça:
+        2.1 Se a chave do elemento corrente casar com a chave de busca, retorne o valor associado à chave desse elemento.
+        2.2 Considere como elemento corrente o próximo elemento da tabela.
+    3. Retorne um valor que indique que a chave de busca não foi encontrada.
+
+- Análise:
+1. BUSCA:      melhor caso: O(1) | pior caso: O(n)
+2. INSERÇÃO:   melhor caso: O(n) | pior caso: O(n)
+3. REMOÇÃO:    melhor caso: O(n) | pior caso: O(n)
+4. CONSTRUÇÃO: melhor caso: O(n^2) | pior caso O(n^2)
+
+
+--------------------------------------------------------------------------
+
+
++ Busca Sequencial com Movimentação
+
+- A eficiência de busca sequencial pode ser melhorada movendo-se os registros com maior frequência de acesso para o início ou para uma posição mais próxima do início da tabela de busca.
+
+- Existem diversas maneiras de organização de tabelas de busca que procuram atingir esse obje?vo.
+    • MOVIMENTAÇÃO PARA O INÍCIO: Após a chave desejada ser localizada, ela é colocada no início da tabela (VAI PARA O ÍNICIO).
+    • TRANSPOSIÇÃO: Após o elemento desejado ser localizado, ele é trocado com seu predecessor a não ser que ele esteja no início da tabela. (AVANÇA UM INDEX) 
+
+    • Essas formas são baseadas na expectativa de que uma chave recém acessada será provavelmente acessada novamente em breve.
+    • A escolha de uma maneira é normalmente associada ao contexto do programa.
+
+- Busca de Movimentação para o inicio é muito ruim para arrays indexados, mas para listas encadeadas, se torna uma boa opção.
+
+- Análise:
+1. BUSCA:      melhor caso: O(1) | pior caso: O(n)
+2. INSERÇÃO:   melhor caso: O(1) | pior caso: O(1)
+3. REMOÇÃO:    melhor caso: O(1) | pior caso: O(n)
+4. CONSTRUÇÃO: melhor caso: O(n) | pior caso O(n)

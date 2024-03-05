@@ -1,0 +1,71 @@
++ Busca Linear em Tabela Ordenada
+
+- Se uma tabela de busca implementada como lista indexada ou encadeada estiver ordenada, podem-se usar técnicas elementares para melhorar a eficiência das operações de busca.
+
+- Se a tabela de busca for implementada como lista indexada ordenada, podem-se efetuar buscas com custo O(log n).
+    - Não funciona com listas encadeadas porque os algoritmos precisam de acesso imediato aos elementos no meio da indexação e nas listas encadeadas só é possível acessar os elementos presentes através da visitação sequencial a patir do início.
+    
+- É necessário ao construir manter a ordenação.
+
+- Inserir um único elemento numa lista indexada tem custo temporal O(n), visto que essa operação pode ser dividida em duas etapa com o mesmo custo O(n):
+    - Encontrar o local de inserção; e
+    - Efetuar a inserção propriamente dita, que, no pior caso, move todos os elementos da lista para ceder espaço para o novo elemento.
+- Assim, construir uma tabela de busca implementada como lista ordenada por meio de inserções sucessivas terá custo temporal total O(n^2).
+    - Então, não se deve usar esse método para tabelas grandes.
+
+- Em geral, o problema que ocorre com métodos de busca que requerem o uso de tabelas indexadas ordenadas é como criar e manter ordenadas tais tabelas.
+    - Para tabelas grandes, o custo de criação da tabela por meio de inserções tem custo proibi>vo [O(n^2)];
+    - De modo que é melhor criar a tabela desordenada e, então, ordená-la usando um método eficiente de ordenação.
+- Além disso, o uso de tabelas desordenadas é preferível para aplicações nas quais ocorre um enorme número de operações de inserção e rela0vamente poucas operações de busca.
+
+
+-----------------------------------------------------------------------
+
+
++ Busca Binária
+
+- É um tipo de busca que se aplica apenas a tabelas de busca com chaves ordenadas em ordem crescente ou decrescente.
+    - A denominação é decorrente do fato de a tabela de busca ser continuamente dividida em duas partes iguais.
+
+1. Atribua à inf o menor índice e a sup o maior índice da tabela
+2. Enquanto inf ≤ sup faça:
+    2.1 Atribua ⌊inf + (sup – inf )/2⌋ à variável meio (INDICE DO MEIO).
+    2.2 Compare a chave de busca com a chave do elemento que se encontra no índice meio da tabela.
+    2.3 Se as chaves forem iguais, encerre a busca indicando o sucesso da operação.
+    2.4 Se a chave de busca for menor do que a chave do elemento que se encontra no índice meio da tabela, atribua meio – 1 à sup (MAIOR VALOR INDICE SUBARRAY ESQUERDA)
+    2.5 Caso contrário (se a chave de busca for maior do que a chave do elemento que se encontra no índice meio da tabela), atribua meio + 1 à inf (MENOR VALOR SUBARRAY DIREITA)
+3. Retorne um valor que indique que a chave de busca não foi encontrada
+
+- Análise:
+    - A tabela deve ser implementada como uma lista indexada ordenada.
+    - Divide a tabela em partes (quase) iguais.
+    - Pode ser usada quando a chave é string
+    - Complexidade temporal: O(log n)
+
+-----------------------------------------------------------------------
+
+
++ Busca por Interpolação
+
+- Um possível melhoramento com relação à busca binaria consiste em calcular com mais precisão o índice da tabela na qual se espera encontrar a chave de busca, em vez de supor que ela sempre se encontra no meio de cada intervalo.
+
+- Imita a busca em dicionário (de papel):
+    - Se o elemento que se está procurando começa com uma letra próxima ao início do alfabeto, abre-se o dicionário próximo ao seu início;
+    - Se a palavra começa com uma letra próxima ao final do alfabeto, abre-se o dicionário próximo ao seu final e assim por diante.
+- Pode ser aplicada em tabelas de busca ordenadas implementadas como listas indexadas.
+
+- A busca por interpolação é semelhante à busca binária no sentido de que em ambos os casos a busca é realizada entre dois limites — inf e sup — que são continuamente reduzidos;
+    - Mas, diferentemente da busca binária, a busca por interpolação não divide a tabela em duas metades iguais.
+    - Quer dizer, o local onde se espera encontrar a chave é calculado como: meio = inf + (sup-inf)*((key-key[inf])/(key[sup]-key[inf]))
+    
+    - Se as chaves não forem uniformemente distribuídas, as buscas não serão eficientes.
+    - Também é um método inconveniente para chaves não numéricas.
+
+    - Para tabelas de busca com poucos elementos, o custo temporal é equivalente e a busca por interpolação realiza operações matemáticas mais complexas.
+    - Por outro lado, busca por interpolação certamente deve ser levada em consideração para tabelas grandes e para situações nas quais comparações entre chaves são dispendiosas.
+
+- Análise:
+    - A tabela deve ser implementada como uma lista indexada ordenada.
+    - Divide a tabela em partes DESIGUAIS.
+    - Dificilmente pode ser usada quando a chave é string
+    - Complexidade temporal: O(log(log n)) [Depende muito da suposição de que as chaves estão distribuídas uniformemente.]
