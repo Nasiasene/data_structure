@@ -1,0 +1,145 @@
++ Árvores Multidirecionais Descendentes de Busca
+
+- Elas não possuem u1lidade prá1ca, pois são muito ineficientes.
+- Elas não devem ser implementadas em memória principal.
+
+- OBS:
+    - Árvores ascendentes (upward trees):
+        • Nas árvores ascendentes, cada nó tem um único pai (ou superior) e pode ter zero ou mais filhos (ou inferiores).
+        • A árvore começa a partir de um nó base e se ramifica para cima em direção ao nó raiz, que é o nó mais alto na hierarquia.
+        • É comum encontrar essas árvores em contextos onde se precisa rastrear relacionamentos ascendentes, como em árvores genealógicas ou em hierarquias organizacionais.
+    
+    - Árvores descendentes (downward trees):
+        • Nas árvores descendentes, cada nó tem um único nó descendente (ou inferior) e pode ter zero ou mais pais (ou superiores).
+        • A árvore começa a partir de um nó raiz e se ramifica para baixo em direção aos nós folha, que são os nós mais baixos na hierarquia.
+        • Essas árvores são úteis para representar estruturas onde a relação principal é descendente, como em estruturas de diretório de um sistema de arquivos.
+
+-----------------------------------------------------------------------
+
+- Uma árvore multidirecional de busca de ordem (ou grau) n é uma árvore na qual cada nó possui n ou menos filhos e um número de chaves armazenadas igual ao número de filhos menos um.
+    • Por exemplo, se um nó tiver no máximo 3 filhos, ele terá 2 chaves. (como se fosse uma lista ou array ou vetor / grau 3)
+
+- Um nó pode ter um ou mais filhos vazios
+
+- Cada chave tem um filho esquerdo e um filho direito.
+    • Similar às árvores binárias, todas as chaves no filho esquerdo serão menores do que a chave e todas as chaves no filho direito maiores do que ela.
+
+- Nós são ditos COMPLETOS quando possuem a quantidade máxima de filhoes e chaves. (incompletos quando contrário.)
+
+- Uma FOLHA é um nó cujos FILHOS são TODOS NULOS.
+    - Em uma árvore multidirecional descendente, qualquer nó incompleto é uma folha.
+- Uma SEMIFOLHA é um nó com PELO MENOS UM FILHO VAZIO.
+
+- Numa árvore multidirecional de busca BALANCEADA, todas as SEMIFOLHAS se encontram NO MESMO NÍVEL, o que implica no fato de TODAS AS SEMIFOLHAS SEREM FOLHAS.
+    - Ex: Árvores B
+
+- Quando os nós não são completos, as ABMs implementadas dessa maneira desperdiçam espaço.
+- Em armazenamento externo, a questão de manter as chaves em um bloco compacto é mais importante do que o efetivo desperdício de espaço.
+
+- A leitura de informações em um disco é feita em blocos, de maneira que, o ideal é manter o maior número de elementos juntos.
+- Dessa maneira, concentrando várias chaves em apenas um nó (e esse nó pode ser entendido como um bloco de um disco), que será copiado para a memória principal em apenas uma leitura de disco, ganha-se desempenho.
+- Por essa razão, os sistemas de armazenamento baseados em ABMs buscam maximizar o tamanho dos nós, e nós de tamanho 200 ou mais não são incomuns.
+
+-----------------------------------------------------------------------
+
+- BUSCA:
+    - Entrada: Árvore e uma key.
+    - Saída: valor associado a key ou valor informando que a key não foi achada.
+
+    1. Faça um ponteiro p apontar para raiz da árvore.
+    2. Obtenha o index i da menor chave que é maior do que ou igual a chave de busca do nó apontado por p; se tal chave não for encontrada, torne i igual ao número de chaves nesse nó.
+    3. Se a chave na posição i do nó apontado por p for igual a key, retorne o valor associado a essa key.
+    4. Caso contrário, se o filho na posição i desse nó for nulo, retorne um valor que indique o fracasso da operação.
+    5. Caso contrário, faça com que p aponte para esse filho e volte o PASSO 2.
+
+- INSERÇÃO:
+    - Entrada: Uma nova key e seu valor e uma árvore multidirecional de busca.
+    - Saída: Uma árvore multidirecional de busca.
+
+    1. Se a árvore estiver vazia, crie um nó, acrescente a chave a esse nó, torne-o raiz da ávrore.
+    2. Encontre o nó que contém ou deveria conter a key inserida.
+    3. Se a key já existe retorne um erro, informando que a chave já existe na árvore.
+    4. Se a chave não for encontrada, o nó encontrado no PASSO 2 é aquele no qual a nova key ficará.
+        4.1 Se o nó não estiver completo, insira a nova key no nó de modo que as keys permaneçam ordenadas.
+        4.2 Caso o nó esteja completo, crie um nó contendo a nova chave e torne esse nó filho esquerdo da menor chave do nó encontrado no PASSO 2 que é maior do que a nova key. 
+    5. Retorne um valor indicando que deu certo.
+
+    -- Basicamente: Busca a key, caso não ache, ponha no último nó onde parou, caso esteja cheio, ponha a esquerda do menor maior nó que ele.
+
+
+- REMOÇÃO:
+    - Entrada: A key a ser removida e uma árvore multidirecional de busca.
+    - Saída: Uma árvore multidirecional de busca.
+
+    1. Tente encontrar a key utilizando o algoritmo de BUSCA.
+    2. Se a chave não foi encontrada, enecerre o código e retorne que não há tal chave na árvore.
+    3. Se a key a ser removida tiver um filho esquerdo ou direito vazio.
+        3.1 Remova a key.
+        3.2 Se houver outras keys no nó, compacte-o.
+        3.3 Se a chave removida for a única do nó.
+            3.3.1 Libere o nó.
+            3.3.2 Atualize o pai desse nó. 
+    4. Se a key a ser removida tiver filho a esquerda e direita NÃO vazio.
+        4.1 Encontre a key sucessora da chave a ser removida (tal key deve ter uma subárvore esquerda vazia).
+        4.2 Substitua a key pela chave sucessora. 
+        4.3 Remova a key sucessora utilizando o PASSO 3.
+
+    --Basicamente:
+    1. Caso não tenha nenhum filho:
+        1.1 Simplesmente apague a key/nó.
+    2. Caso a key a ser removida tenha no MAXIMO UM filho:
+        2.1 Caso seja a única key no nó, suba seu nó filho a sua posição e apague o nó.
+        2.2 Caso não seja a unica key, compacte o nó.
+    3. Caso a key a ser removida tenha DOIS FILHOS:
+        3.1 Encontre a key sucessora a ela e substitua (essa chave sucessora deve ter uma subárvore esquerda vazia).
+
+
+-----------------------------------------------------------------------
+
+- Com as árvores estudadas, especificamente as AVL, conseguimos operações com custo θ(log n).
+    - 1.000.000 de nós resultam em no máximo 20 acessos à nós para cada operação.
+        • Excelente para memória principal, ruim para secundária.
+
+- Ao trabalhar na memória secundária é melhor ler um bloco com vários nós de uma vez.
+    - No disco, os dados são armazenados em páginas ou blocos. (tamanho comum 4kb)
+
+ ____________________________________________________________________________________________
+|              MEMÓRIA PRINCIPAL              |              MEMÓRIA SECUNDÁRIA              |
+----------------------------------------------------------------------------------------------
+| Encadeamento é obtido por meio de ponteiros | Encadeamento se dá aramzenando-se posições   |
+| que armazenam endereços de nós.             | de mós.                                      |
+----------------------------------------------------------------------------------------------
+| Ponteiro nulo indica fim de caminho.        | Posição inválida indica fim de caminho.      |
+|                                             | Tal posição deve ser representada por um va- |
+|                                             | lor inteiro negativo, visto que zero é uma   |
+|                                             | posição válida no arquivo.                   |
+----------------------------------------------------------------------------------------------
+| Usa dois ponteiros frequentemente chamados  | Usa duas var inteiras chamadas de p e q, para|
+| de p e q, onde q segue p um nível acima.    | armazenar posições de nós no arquivo que ar- |
+|                                             | mazena a árvore. A var q armazena a pos de um|
+|                                             | nó que está acima do nó indicado por p.      |
+----------------------------------------------------------------------------------------------
+| Os nós já estão em mémoria principal.       | Nós precisam ser localizados e lidos em memó-|
+|                                             | principal.                                   |
+----------------------------------------------------------------------------------------------
+| Nós são tipicamente acessados por ponteiros.| Nós são tipicamente acessados por meio de    |
+|                                             | variáveis/estruturas que os armazenam.       |
+----------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------
+
++ Árvores Multidirecionais de Busca em Memória Secundária.
+
+- Árvores de busca multidirecionais são bastante usadas na prática quando implementadas em dispositivos de armazenamento externo que permitem acesso direto.
+
+- Cada acesso a um nó da árvore requer uma operação de leitura no meio de armazenamento externo e essas operações são relativamente lentas.
+    - Assim, sistemas de armazenamento externo baseados em árvores de busca multidirecionais tentam maximizar o tamanho de cada nó.
+        • Árvores multidirecionais de ordem 200 ou mais são comuns.
+
+- Quando muitos nós NÃO são COMPLETOS, árvores de busca multidirecionais podem DESPERDIÇAR muito ESPAÇO em disco.
+
+- Os registros podem ser armazenados juntamente com as chaves ou separadamente.
+
+- Como o tamanho de um nó é afetado pela quantidade de dados lidos de cada vez no meio externo, obtém-se uma árvore de ordem maior mantendo-se os registros fora dos nós (tabela de busca com chave externa).
+    - Essa opção compensa mesmo que implique numa leitura adicional para acessar o registro após a localização de sua chave.
