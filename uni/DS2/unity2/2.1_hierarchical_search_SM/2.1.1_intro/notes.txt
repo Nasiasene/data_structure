@@ -1,0 +1,33 @@
++ Busca Hierárquica em Memória Secundária.
+
+- Alguns programas podem precisar lidar com uma quan1dade muito grande de dados que podem não caber na memória principal.
+    - Nesses casos, podem ser u1lizadas estruturas de dados armazenadas em memória secundária.
+        • Eles podem permitir encontrar um registro dentro de um arquivo de muitos gigabytes com poucas operações de leitura.
+    
+    - Nestas estruturas, a medida de complexidade está relacionada a quan1dades de acessos aos blocos dos arquivos.
+        • Assim, é melhor acessar uma grande quan+dade de dados de uma vez ao invés de vários acessos para as mesmas informações.
+        • Então, os dados devem ser organizados para minimizar a quan+dade de cessos.
+
+- Transferência de disco é a leitura de um bloco em memória secundária e seu subsequente armazenamento em memória principal, ou vice-versa.
+
+- O desempenho de algoritmos que lidam com tabelas de busca armazenadas em memória secundária é medido em termos do número de transferências de disco necessárias para efetuar uma usca ou atualização da tabela.
+    - Essa medida é denominada custo de entrada e saída ou custo de transferência do algoritmo em questão.
+
+- Pre-ordem: visita, vai a esquerda, depois direita.
+- in-ordem : vai a esquerda maxima, visita o nó, e depois direita
+- Pos-ordem: vai a mais esquerda, depois a sua direita, por ultimo printa.
+
+
+- IMPORTANTE MINIMIZAR NÚMERO DE ACESSO
+
+- DADOS são armazenados em disco em unidades chamadas BLOCOS ou páginas.
+    - Cada acesso a disco deve ler ou escrever um ou múltiplos blocos.
+    - mesmo que se precise acessar um único byte armazenado num bloco de disco que contém milhares de bytes, precisa-se ler o bloco inteiro.
+
+- O DESEMPENHO de ALGORITMOS que lidam com tabelas de busca armazenadas em memória SECUNDÁRIA é medido em termos do NÚMERO DE TRANSFERÊNCIA de disco necessárias para efetuar uma busca ou atualização da tabela. Essa medida é denominada custo de entrada e saída ou custo de transferência do algoritmo em questão.
+
+- NÓ COMPLETO(tem número máximo de filhos, seja nulos ou não)/INCOMPLETOS(não tem o número máx de filhos.)
+- NÓ FOLHA(todos os filhos são nulos.)
+- NÓ SEMIFOLHA(nó com pelo menos um filho nulo.) (todo nó folha é também semi-folha.)
+
+- Numa árvore multidirecional de busca BALANCEADA, todas as semifolhas se encontram no mesmo nível. (implica no fato de todas as semifolhas serem folhas.)
