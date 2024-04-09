@@ -1,0 +1,59 @@
++ Dispersão em Memória Secundária:
+
+- BUCKETS: BLOCOS DE DADOS.(Város dados, assim como as páginas ou nós em árvore multidericionais).
+    - Acessa um registro e procura o dado no bucket. Para não ter que acessar individualmente.
+    - Como se fosse disperção com encadeamento.
+
+- Dispersão Estática:
+    - Maneira mais simples de implementar tabelas de dispersão em memória secundária,
+
+    - No contexto de dispersão em memória secundária, COLETOR (BUCKET) é uma unidade de armazenamento externo capaz de conter um ou mais registros de uma tabela de busca.
+        • Seu tamanho deve ser maximizado para conter o maior número de registros de acordo com o tamanho de um bloco de armazenamento.
+        • Cada coletor pode ser indexado, por terem o mesmo tamanho.
+
+    - Dispersão estática é uma das técnicas de dispersão em memória secundária.
+
+    - São dois os tipos de coletores em uma tabela como esta:
+        • Coletor PRIMÁRIO – O número de coletores primários deve ser decidido a priori e É CONSIDERADO o TAMANHO DA TABELA. Esses coletores SÃO ACESSADOS DIRETAMENTE por intermédio de um ÍNDICE RESULTANTE da aplicação de uma função de dispersão sobre uma chave.
+        • Coletor EXCEDENTE – Um coletor excedente é usado como COMPLEMENTO DE UM BUCKET PRIMÁRIO QUE SE ENCONTRA CHEIO e pode ser ACESSADO APENAS POR MEIO DO COLETOR PEIMÁRIO associado a ele. (como se fosse uma lista encadeada de buckets secundários quando o primário está chio.)
+
+        - Idealmente, uma tabela deveria possuir apenas coletores primários.
+
+
+- Algoritmo InsereEmTabelaDeDispersãoEstática:
+    - Entrada: Um novo registro
+    - Entrada/Saída: Uma tabela de dispersão estática
+
+    1. Aplique a função de dispersão e obtenha o índice do coletor primário no qual o registro poderá ser inserido
+    2. Leia o coletor primário no arquivo e torne-o o coletor corrente
+    3. Enquanto o coletor corrente estiver repleto, faça:
+        3.1 Se o coletor não possuir coletor excedente:
+            3.1.1 Crie um novo coletor excedente e torne-o o coletor corrente
+            3.1.2 Encerre o laço
+        3.2 Caso contrário, torne-o o coletor corrente
+    4. Acrescente o novo registro ao final do coletor corrente
+    5. Atualize o número de registros do coletor corrente
+
+
+- Algoritmo BuscaEmTabelaDeDispersãoEstática:
+    - Entrada: Uma chave de busca e uma tabela de dispersão estática
+    - Saída: O registro associado à chave de busca, se ele for encontrado, ou um valor indicando o fracasso da operação, em caso contrário
+
+    1. Aplicando a função de dispersão, obtenha o índice do coletor primário no qual o registro poderá ser encontrado e torne-o índice corrente
+    2. Enquanto o índice corrente for válido, faça:
+        2.1 Leia o coletor associado ao índice corrente
+        2.2 Efetue uma busca sequencial no coletor lido usando a chave de busca
+        2.3 Se a chave foi encontrada, retorne o registro associado a ela
+        2.4 Atribua ao índice corrente o índice do próximo coletor excedente
+    3. Retorne um valor informando que a chave de busca não foi encontrada
+
+
+- Algoritmo RemoveEmTabelaDeDispersãoEstática:
+    - Entrada: A chave do registro a ser removido e uma tabela de dispersão estática
+    - Saída: Uma tabela de dispersão estática e um valor informando se a operação foi bem-sucedida
+
+1. Encontre o coletor que contém o registro com a chave de entrada usando um algoritmo semelhante a BuscaEmTabelaDeDispersãoEstática
+2. Se o registro a ser removido não foi encontrado, retorne um valor informando que a operação foi malsucedida
+3. Remova o registro que contém a chave de entrada do coletor que o contém
+4. Atualize o número de registros do referido coletor
+5. Escreva o coletor atualizado no arquivo

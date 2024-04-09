@@ -1,0 +1,29 @@
++ Dispersão Extensível:
+
+- Usa uma FUNÇÃO DE DISPERÇÃO e um DIRETÓRIO para localizar o bucket no disco.
+
+- O DIRETÓRIO (ou índice) de uma tabela de dispersão extensível É UM ARRAY, idealmente, MANTIDO em MEMÓRIA PRINCIPAL durante as operações, com as seguintes características:
+    • cADA ÍNDICE DO ARRAY está associado a um VALOR OBTIDO POR MEIO DA APLICAÇÃO DE UMA FUNÇÃO DE DISPERSÃO NA CHAVE.
+    • O CONTEÚDO de cada elemento do array REPRESENTA uma REFERÊNCIA PARA UM COLETOR armazenado EM MEMÓRIA SECUNDÁRIA, sendo que dois ou mais desses elementos podem fazer referência a um mesmo coletor.
+
+- O tamanho do diretório é dinamicamente ajustado de acordo com o número de registros na tabela.
+    • Tornando a tabela extensível.
+- O valor de dispersão é avaliado como um array de bits, uAlizando os g primeiros bits dessa sequência como índice.
+    • Aqui, g é chamado de profundidade global ou profundidade de diretório.
+    • O tamanho do diretório é 2!.
+- Cada coletor possui uma profundidade local l, que é o número de bits iniciais que todas as chaves desse coletor têm em comum.
+    • Cada coletor pode ter uma profundidade diferente, porém sempre l ≤ g.
+
+
+- Não precisa reposicionar todo mundo p "redimensonar a tabela".
+- Ele ja ajusta o tamanho automaticamente.
+
+- Permite reposicionar somente os registros alternados. Só precisar mexer nos registros do bucket.
+
+- Cria o arquivo de ponteiro para os buckets.
+
+- Determina-se a quantidade de diretorios pela quantidade de bits.
+
+- faz o mod por essa funcao
+
+- quando bucket esta lotado 
