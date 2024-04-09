@@ -1,0 +1,240 @@
++ Árvores B
+
+- Árvore B de ordem (ou grau) G é uma árvore multidirecional de busca ASCENDETES(começam pelas folhas) de ordem G BALANCEADA na qual cada nó, EXCETO A RAIZ (terá no mínimo UM),
+possui no MÍNIMO ⌈G/2⌉ FILHOS (teto) e no MÁXIMO G-1.
+    - Por exemplo, numa árvore B de ordem 9 ou 10, cada nó possui, no mínimo, 5 filhos (ou 4 chaves).
+    - Numero minimo de chaves é (m/2)-1.
+    - Outro exemplo m = 5.
+        - Minimo de chaves = (5/2)-1 = 2.5->3 - 1 = 2.
+        - Minimo de filhos = (5/2) = 2.5 -> 3.
+
+- Maior diferença com a árvore bin é ter mais de um elemento em cada nó. 
+
+- Vantagens em relação às árvores multidirecionais de busca descendentes:
+    • O número máximo de nós acessados em uma busca é pequeno.
+    • Todos os nós, exceto a raiz, são completos ou semicompletos, desperdiçando pouco espaço em disco.
+
+- Muito usada em sistemas de base de dados.
+    - GRANDE volume de dados.
+
+- Serve para reduzir as operações no disco.
+    - Operações no disco é proporcional a altura da ávvore.
+    - A altura dessas arvores são bem menores que as binarias.
+
+- LEMBRETE, o acesso de dados em memoria externa é realizada em BLOCOS.
+
+- O acesso em pequenos blocos, evita que seja necessário acessar todos os dados, acessando somente parcelas dele.
+
+- Para ter uma PERSISTÊNCIA DE DADOS e evitar que a árvore seja sempre reconstruída, pode-se usar um arquivo binário auxiliar para guardar apenas a posição da raiz.
+
+- São denominadas de árvores ascendentes pois crescem DE BAIXO PARA CIMA, a altura de uma árvore B aumenta quando a raiz é dividida e uma nova raiz é criada, sendo assim, só aumentam a sua altura com a inserção de novas chaves.
+
+- ÁRVORE CRESCE PARA CIMA.
+
+- Predecessor = maior chave do nó a esquerda(piso ou maior menor filho)
+- Sucessor = menor chave do nó a direita(teto ou menor maior filho)
+
+
+----------------------------------------------------------------------------------------------
+
+
+class Node:
+    def __init__(self, leaf = False):
+        self.keys = []
+        self.children = []
+        self.leaf = leaf
+
+class Btree:
+    def __init__(self, t):
+        self.root = Node(True)
+        self.t = t
+    
+
+- BUSCA: 
+    - A busca em em uma árvore B é exatamente igual à busca em uma árvore multidirecional de busca descendente.
+    
+    - Entrada: Árvore e uma key.
+    - Saída: valor associado a key ou valor informando que a key não foi achada.
+
+    1. Faça um ponteiro p apontar para raiz da árvore.
+    2. Obtenha o index i da menor chave que é maior do que ou igual a chave de busca do nó apontado por p; se tal chave não for encontrada, torne i igual ao número de chaves nesse nó.
+    3. Se a chave na posição i do nó apontado por p for igual a key, retorne o valor associado a essa key.
+    4. Caso contrário, se o filho na posição i desse nó for nulo, retorne um valor que indique o fracasso da operação.
+    5. Caso contrário, faça com que p aponte para esse filho e volte o PASSO 2.
+
+
+    - Em Python:
+    def search(self, key, node = None):
+        if node == None:
+            node = self.root
+        
+        i = 0
+        while i < len(node.keys) and key > node.keys[i]:
+            i+=1
+        if i < len(node.keys) and key == node.keys[i]:
+            return (node, i)
+        elif node.leaf:
+            return None
+        else: 
+            return self.search(key, node.cildren[i])
+
+
+
+- INSERÇÃO: 
+    - Os dois primeiros passos são idên0cos à inserção em uma árvore multidirecional de busca descendente:
+        • Encontra-se o nó-folha dentro do qual a chave será inserida, usando uma função como EncontraNoMultiMS().
+        • Se a folha não estiver completa, insere-se a chave usando uma função como InsereEmFolhaMultiMS().
+    - Diferem-se no terceiro passo, quando o nó-folha encontrado no segundo passo é completo:
+        • Em vez de criar-se um novo nó contendo apenas uma chave, divide-se a folha completa em duas folhas.
+
+    - Se insere somente nas FOLHAS.
+
+    - Entrada: A key e a raiz da árvore.
+    - Saída: Árvore modificada.
+
+    1. Se a árvore estiver vazia, crie um nó, acrescente a chave a esse nó, torne-o raiz da ávrore.
+    2. Faça uma busca usando a chave a ser inserida e EMPILHE OS NÓS QUE SE ENCONTRAM NO CAMINHO desde a raiz ATÉ o nó no qual a chave será inserida.
+    3. Se a key já existe ESVAZIE A PILHA e retorne um erro, informando que a chave já existe na árvore.
+    4. Atribuaà variável key a chave recebida como parâmetro.
+    5. Atribua o endereço nulo à váriavel filhoDireito.
+    6. Enquanto a PILHA NÃO ESTÁ VAZIA faça:
+        6.1 Desempilhe o nó no qual ocorrerá a inserção(último elemento).
+        6.2 Se o nó no qual a chave será inserida NÃO ESTIVER CHEIO, insira a chave e seu filho direito nesse nó.
+        6.3 caso o nó ESTEJA CHEIO, divida o nó usando o algoritmo de DIIVIDIR NÓ EM ÁRVORE B.
+        6.4 Atualize as variáveis key e filhoDireito com os valores retornados pelo algoritmo DIIVIDIR NÓ EM ÁRVORE B.
+    7. Crie uma nova raiz tendo como filho esquerdo a antiga raiz e como filho direito o nó resultante da última divisão de nós.
+
+    • ALGORITMO DIIVIDIR NÓ EM ÁRVORE B:
+        - Entrada: A key a ser inserida, a posição de inserção, o filho a direita da key, e o nó completo da árvore B no qual ocorrerá a inserção e divisão.
+        - Saída: O novo nó resultante e a chave que subirá para um nó no próximo nível superior
+
+        1. Se a posição de inserção estiver na parte suerior do array de chaves, faça o seguinte:
+            1.1 Copie a metade das chaves do nó dividido  menos um para um novo nó direito.
+            1.2 Insira a nova chave no nó da direita.
+            1.3 A chave que subirá para o próximo nível superior da árvore será a última chave do nó que foi dividido.
+        2. Faça uma busca usando a chave a ser inserida e EMPILHE OS NÓS QUE SE ENCONTRAM NO CAMINHO desde a raiz ATÉ o nó no qual a chave será inserida.
+        3. Se a key já existe ESVAZIE A PILHA e retorne um erro, informando que a chave já existe na árvore.
+        4. Atribuaà variável key a chave recebida como parâmetro.
+        5. Atribua o endereço nulo à váriavel filhoDireito.
+        6. Enquanto a PILHA NÃO ESTÁ VAZIA faça:
+            6.1 Desempilhe o nó no qual ocorrerá a inserção(último elemento).
+            6.2 Se o nó no qual a chave será inserida NÃO ESTIVER CHEIO, insira a chave e seu filho direito nesse nó.
+            6.3 caso o nó ESTEJA CHEIO, divida o nó usando o algoritmo de DIIVIDIR NÓ EM ÁRVORE B.
+            6.4 Atualize as variáveis key e filhoDireito com os valores retornados pelo algoritmo DIIVIDIR NÓ EM ÁRVORE B.
+        7. Crie uma nova raiz tendo como filho esquerdo a antiga raiz e como filho direito o nó resultante da última divisão de nós.
+
+
+        -Em Python:
+        def insert(self, k):
+            t = self.t
+            root = self.root
+
+            if len(root.keys) == (2*t) - 1:
+                new_root = Node()
+                self.root = new_root
+                new_root.children.insert(0, root)
+                self.split_child(new_root, 0)
+                self.insert_non_full(new_root, k)
+            else:
+                self.insert_non_full(root, k)
+
+    
+        def split_child(self, x, i):
+            t = self.t
+
+            #y is a ful child of x
+            y = x.children[i]
+
+            #create a new node and add it to x list of children
+            z = Node(y.leaf)
+            x.children.insert(i+1, z)
+
+            #insert the median of the full child y into x
+            x.keys.insert(i, y.keys[t-1])
+
+            #split apart y keys into y and z
+            z.keys = y.keys[t: (2*t) - 1]
+            y.keys = y.keys[(0: t-1)]
+
+            #if y is not a leaf, we reassign y childrens to y and z
+            if not y.leaf:
+                z.children = y.children[t: 2*t]
+                y.children = y.children[0: t-1]
+
+
+- REMOÇÃO:
+    - A remoção de uma chave pode requerer a combinação de nós, de modo que a árvore continue satisfazendo os critérios estabelecidos para árvores B.
+
+    - Entrada: A chave e a árvore B
+    - Saída: A árvore modificada.
+
+    1. Faça a busca pela chave a ser removida, EMPILHANDO os nós que se encontram no caminho da raiz até o nó que contenha a chave.
+    2. Se a chave não for encontrada, encerre a operação.
+    3. Se a chave for encontrada NUMA FOLHA:    
+        3.1 Remova a chave usando RemoveEmFolhaDeÁrvoreB
+        3.2 Encerre indicando que a operação terminou.
+    4. Se a chave for encontrada em um nó que NÃO É FOLHA:
+        4.1 Substitua a chave por sua sucessora (que está numa folha)
+        4.2 Remov aa chave sucessora usando RemoveEmFolhaDeÁrvoreB.
+        4.3 Encerre indicando que terminou.
+
+    • RemoveEmFolhaDeÁrvoreB:
+        - Entrada: A pilha contendo os nós encontrados no meio do caminho.
+        - Saída: A pilha esvaziada e a árvore B alterada.
+
+        1. Desloque para uma posição anterior cada chave que segue a chave a ser removida.
+        2. Decremente o número de filhos do nó.
+        3. Ajuste o nó usando JuntaNósDeÁrvoreB.
+        4. Esvazie a pilha.
+
+    • JuntaNósDeÁrvoreB:
+        - Entrada: Uma folha e uma pilha contendo os nós visitados.
+        - Saída: A pilha e a árvore B alterada.
+
+        1. Se o número de chaves da folha (N) NÃO for MENOR do que o número mínimo de chaves permitido, ENCERRE.
+        2. Se o irmão vizinho à esquerda (E) do nó N tiver um número de chaves maior do que o mínimo:
+            2.1 Insira a sucessora da última chave do nó E(no nó-pai) no ínicio das chaves do nó N.
+            2.2 Faça o filho esquerdo da (nova) primeira chave de N apontar para o filho direito da última chave de E.
+            2.3 Substitua a sucessora da última chave do nó E por essa chave.
+            2.4 Decremente o número de filhos de E.
+            2.5 Incremente o número de filhos de N.
+            2.6 Encerre.
+        3. Se o irmão vizinho à direita (D) do nó N tiver um número de chaves maior do que o mínimo.
+            3.1 Acrescente a sucessora da última chave do nó N ao final das chaves desse nó.
+            3.2 Faça o filho direito da (nova) última chave de N apontar para o filho esquerdo da primeira chave de D.
+            3.3 Substitua a sucessora da última chave do nó N pela primeira chave do nó D.
+            3.4 Desloque cada chave e filho de D uma posição para trás.
+            3.5 Decremente o número de filhos de D.
+            3.6 Incremente o número de filhos de N.
+            3.7 Encerre.
+        4. Se nenhum irmão vizinho do nó N tiver um número de nós maior do que o mínimo.
+            4.1 Se N tem um irmão vizinho direito D:
+                4.1.1 Acrescente a chave sucessora (S) da última chave do nó N ao final das chaves de N.
+                4.1.2 Faça o filho direito da (nova) última chave de N apontar para o filho esquerdo da primeira chave de D.
+                4.1.3 Desloque cada chave do nó pai de N e seu filho direito, a partir da chave sucessora S, para uma posição anterior.
+                4.1.4 Decremente o número de filhos do pai de N.
+                4.1.5 Acrescente todas as chaves de D e seus filhos direitos ao final das chaves de N.
+                4.1.6 Atualize o número de filhos de N.
+                4.1.7 Libere o nó D.
+                4.1.8 Ajuste o pai de N usando JuntaNósDeÁrvoreB
+            4.2 Caso contrário, se N tem um irmão vizinho esquerdo E:
+                4.2.1 Acrescente ao final das chaves de E a chave sucessora (S) da última chave de E.
+                4.2.2 Faça o filho direito da (nova) última chave de E apontar para o filho esquerdo da primeira chave de N.
+                4.2.3 Desloque cada chave e filho direito correspondente do nó pai de N, a partir da chave sucessora S, para uma posiçào anterior.
+                4.2.4 Decremente o número de filhos do pai de N.
+                4.2.5 Acrescente cada chave de N e seu filho direito ao final das chaves de E.
+                4.2.6 Atualize o número de filhos de E.
+                4.2.7 Libere o nó N.
+                4.2.8 Ajuste o pai de E usando JuntaNósDeÁrvoreB.
+
+    - Resumo:
+        1 Caso remova uma folha cuja tamanho > tamMin:
+            -Basta remover a key.
+        2 Caso remova um nó central que tem um dos filhos com tamanho > tamMin:
+            - Caso ambos sejam maiores ou somente o esquerdo: Troque o maior filho a esquerda pelo pai, e depois apague ambos. (maior menor)
+            - Caso somente o direito seja maior: Troque o maior filho a DIREITA pelo pai, e depois apague ambos. (menor maior) 
+        3 Caso remova uma key numa folha cujo tamanho = tamMin:
+            3.1 Se seu irmão contrário(nó direito ou esquerdo) tem tamanho > tamMin: Desce o pai DELES para árvore necessária, e sobe o menor valor(caso direito) ou maior valor(caso esquerdo.) [ROTACIONA]
+            3.2 Caso nenhum irmão consiga ceder, funde as folhas: Basta descer o pai de ambos irmãos, e fundir os dois filhos com o pai. [FUNDE]
+            - Caso isso desbalanceie os nós centrais, basta ou rotacionar, ou fundir novamente.
+        
