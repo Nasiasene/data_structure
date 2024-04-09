@@ -1,0 +1,102 @@
++ Dispersão em Memória Principal
+
+- A técnica de dispersão (hashing) busca associar cada chave em uma tabela de busca a um índice dela.
+    • Com isso, espera-se obter custo θ(1) para as operações básicas.
+
+- De fácil implementação, mas com preocupações difíceis:
+    • Criação da função de dispersão – uma função que deve distribuir as chaves uniformemente nos índices da tabela e minimizem as colisões.
+    • Gerenciamento de colisões – decidir o que fazer quando mais de uma chave são associadas a um mesmo índice.
+
+
+- Em uma tabela hash, o operador "mod" é usado para calcular o resto da divisão do valor de hash (geralmente gerado a partir da chave do elemento) pelo tamanho da tabela.
+    - Por exemplo, se você tem uma tabela hash com 10 slots e o valor de hash de um elemento é 35, você calcularia 35 mod 10, que resultaria em 5.
+    - O operador "mod" é comumente usado para garantir que o índice resultante esteja dentro dos limites válidos da tabela hash (0 até tamanho da tabela - 1).
+
+--------------------------------------------------------------------
+
+-- Função de dispersão é uma função matemá@ca usada para mapear chaves em índices de uma tabela de busca indexada.
+    - O resultado da aplicação de uma função de dispersão sobre uma chave é denominado valor de dispersão.
+        • Esse será sempre um valor inteiro não nega2vo.
+- Um algoritmo (ou método) de dispersão descreve os passos que uma função de dispersão deve seguir para calcular o valor de dispersão de uma chave.
+
+- Cada espaço de uma tabela de dispersão é frequentemente denominado coletor (bucket).
+    - Pode ser um elemento de um array, uma lista encadeada ou um bloco no meio externo.
+
+- Uma tabela de dispersão DIRETAMENTE ENDEREÇÁVEL é aquela para a qual existe uma função de dispersão que GARANTE QUE DUAS CHAVES NUNCA REULTEM NO MESMO VALOR de dispersão.
+    • Situação ideal mas raramente possível na práIca.
+
+---------------------------------
+
+-- Uma colisão ocorre quando duas ou mais chaves são mapeadas numa mesma posição da tabela de dispersão.
+    - São naturais e devemos minimizá-las.
+
+- Existem duas abordagens básicas para tratar colisões:
+    - Tabela de dispersão com encadeamento.
+    - Tabela de dispersão com endereçamento aberto ou com sondagem:
+        • Sondagem linear.
+        • Sondagem quadrática.
+        • Sondagem por dispersão dupla.
+
+---------------------------------
+
+-- O fator de carga α de uma tabela de dispersão indica a proporção de elementos armazenados em relação ao tamanho total da tabela:
+    • α = n/m
+- O fator de carga de uma tabela de dispersão INDICA O NÚMERO MÉDIO DE CHAVES QUE SE ESPERA ENCONTRAR NUM COLETOR, supondo a existência de dispersão uniforme.
+
+- Quanto maior o fator de carga, maior a probabilidade de colisões, que ocorrem quando dois ou mais elementos têm a mesma função de hash. 
+    -Colisões frequentes podem diminuir a eficiência da tabela hash, aumentando o tempo de busca e inserção de elementos.
+
+- Geralmente, os desenvolvedores tentam manter o fator de carga abaixo de um limite aceitável para garantir um bom desempenho da tabela hash. 
+    -  Isso pode ser feito redimensionando a tabela (aumentando o número de "baldes") ou re-hashing os elementos existentes para acomodar mais e reduzir a chance de colisões. 
+
+--------------------------------------------------------------------
+
+- Uma boa tabela de dispersão depende de uma boa função de dispersão.
+    - Apesar de terem sido propostas em 1950, até hoje são pesquisadas novas funções de dispersão.
+        • Ou seja, desenvolver uma função de dispersão é difícil e busca-se evitar operações com θ(n).
+    - Ela deve distribuir bem as chaves, mesmos as que apresentam algum padrão.
+- Há um conflito entre priorizar o uso do espaço ou o tempo esperado para conclusão das operações.
+
+- Funções de Dispersão – Propriedades Desejáveis:
+    • Simplicidade – para ser genérica e fácil de compreender.
+    • Eficiência – para não demorar a calcular o valor de dispersão.
+    • Uniformidade – para que cada valor de dispersão tenha a mesma probabilidade de ser gerado.
+    • Determinismo – para que determinada chave sempre resulte em um mesmo valor de dispersão.
+    • Independência – para funcionar com quaisquer tipos de chaves.
+    • Avalanche – capaz de gerar valores de dispersão substancialmente diferentes mesmo quando duas chaves diferem em apenas 1 bit.
+
+
+- Funções de Dispersão – Tipos de Chaves:
+    - O ideal é que a função seja independente do tipo de chave e, em C, qualquer tipo pode ser visto como um array de bytes.
+    - Chaves Inteiras – geralmente usa-se a dispersão modular.
+    - Chaves Reais – pode-se combinar as partes inteiras e fracionárias.
+
+    - Strings – pode-se usar algoritmos clássicos que atribuem valores para cada caractere.
+    - Chaves Compostas – pode-se combinar os valores de todos os campos para o cálculo.
+
+
+- Métodos de Cálculo de Valores de Dispersão:
+    • Aditivo – baseado na soma de partes, geralmente ruim.
+    • Polinomial – Usa a posição das partes como parte do cálculo.
+    • Tabular – Divide-se os componentes da chave e consulta-se uma tabela de valores aleatórios para cada parte, combinando os resultados.
+    • Divisão Modular – simples, mas problemático, idealmente a tabela deve ter um número primo como tamanho.
+    • MultiplicaAvo – em chaves numéricas, pode-se multiplicar a parte fracionária por uma constante bem escolhida.
+    • Disjunção Exclusiva (XOR) – mistura-se os bytes por meio da disjunção exclusiva.
+    • Rotativo – semelhante à dispersão exclusiva, mas antes mistura-se os bits.
+    • Dispersão por Mistura – divide uma chave em várias partes e concatena ou aplica disjunção exclusiva (xor) a algumas das partes para formar o valor de dispersão esperado.
+
+- Funções de Dispersão – Recomendações Práticas:
+    - Use todos os componentes da chave.
+    - Não use dados irrelevantes ou redundantes.
+
+----------------------------------------------------------------------------------------
+
+- Coletores (Load Factors):
+    - Os coletores, também conhecido como fator de carga, é uma medida que indica quão cheia está a tabela de dispersão. É calculado pela razão entre o número de elementos atualmente armazenados na tabela e o tamanho total da tabela.
+    - Os coletores são importantes porque influenciam diretamente o desempenho da tabela de dispersão. Um fator de carga muito alto pode levar a um aumento nas colisões e, portanto, diminuir a eficiência da pesquisa na tabela.
+
+- Buckets (Slots):
+    - Os buckets são os contêineres individuais dentro da tabela de dispersão onde os elementos são armazenados. Cada bucket é acessado por meio de um índice calculado pela função de dispersão (hash function). Idealmente, cada elemento da tabela de dispersão deveria ser mapeado para um único bucket. No entanto, colisões podem ocorrer, resultando em vários elementos mapeados para o mesmo bucket.
+    - Quando uma colisão acontece, dependendo da estratégia de resolução de colisões adotada, os elementos extras podem ser armazenados no mesmo bucket (por meio de encadeamento ou sondagem linear/quadrática/dupla) ou em outros buckets (por meio do endereçamento aberto). O número e o tamanho dos buckets têm um impacto direto no desempenho e na eficiência da tabela de dispersão.
+
+- Em resumo, coletores e buckets são elementos cruciais em uma tabela de dispersão. O fator de carga afeta a eficiência da estrutura de dados, enquanto os buckets determinam onde os elementos serão armazenados e como as colisões serão tratadas. Um ajuste adequado do fator de carga e uma escolha inteligente da estratégia de resolução de colisões podem resultar em um desempenho ideal da tabela de dispersão.

@@ -1,0 +1,88 @@
++ Redimensionamento de Dispersão: BASICAMENTE CRIA UMA NOVA TABELA E REALOCA TODOS OS ELEMENTOS.
+
+-  Quando o FATOR DE CARGA EXCEDE algum valor (tipicamente, 2 para dispersão com encadeamento e 0,75 para endereçamento aberto), ALOCA-SE UMA NOVA TABELA, usualmente, dobrando o tamanho da antiga tabela, e REALOCAM-SE todas as CHAVES na nova tabela.
+    - Essa operação inteira é chamada REDICIONAMENTO DE DISPERÇÃO.
+    - É uma operação onerosa(custosa), com custo temporal θ(n).
+- Quando redimensionar:
+    - Quando o fator de carga alcançar a metade.
+    - Quando a tabela se tornar repleta.
+    - Quando o fator de carga ultrapassar um limite escolhido.
+
+------------------------------------------------------------------------------------------
+
++ Dispersão Cuco:
+
+- Na dispersão cuco, são utilizadas duas tabelas de dispersão e duas funções de dispersão, uma para cada tabela.
+    - Normalmente o tamanho de cada tabela é maior ou igual a duas vezes a quantidade de chaves.
+- Cada chave pode ser armazenada em dois locais, em cada tabela através de dois valores de dispersão.
+- O endereçamento é aberto e choques são resolvidos com o desalojamento da antiga chave que ocupava o espaço, sendo realocada na outra tabela.
+    - Isso pode se repetir.
+
+
+
+- Algoritmo BuscaEmDispersãoCuco:
+    - Entrada: Uma tabela de dispersão cuco e uma chave de busca c
+    - Saída: O valor associado à chave, se ela for encontrada, ou um valor informando o fracasso da operação
+
+    1. Obtenha o valor de dispersão d1 de c usando a função de dispersão associada à primeira tabela
+    2. Se a chave na posição d1 da primeira tabela for igual a c, retorne o valor associado a essa chave
+    3. Obtenha o valor de dispersão d2 de c usando a função de dispersão associada à segunda tabela
+    4. Se a chave na posição d2 da segunda tabela for igual a c, retorne o valor associado a essa chave
+    5. Retorne um valor informando que a busca não obteve sucesso
+
+- Algoritmo InsereEmDispersãoCuco:
+    - Entrada: O conteúdo de um novo elemento com chave c e uma tabela de dispersão cuco
+    - Saída: Uma tabela de dispersão cuco e um valor informando o sucesso da operação
+
+    1. Se a chave já existe na tabela, encerre informando o fracasso da operação (a chave é primária)
+    2. Calcule o número limite de desalojamentos
+    3. Enquanto o número máximo de desalojamentos não for atingido, faça:
+        3.1 Obtenha o valor de dispersão d1 da chave do elemento a ser inserido aplicando-lhe a função de dispersão associada à primeira tabela
+        3.2 Se a posição d1 da primeira tabela estiver vazia, efetue a inserção e retorne indicando o sucesso da operação.
+        3.3 Caso contrário, faça o seguinte:
+            3.3.1 Guarde o elemento que se encontra na posição d1
+            3.3.2 Armazene o novo elemento na posição d1
+            3.3.3 Faça com que o elemento a ser inserido passe a ser aquele que foi guardado
+        3.4 Obtenha o valor de dispersão d2 da chave do elemento a ser inserido aplicando-lhe a função de dispersão associada à segunda tabela
+        3.5 Se a posição d2 da segunda tabela estiver vazio, efetue a inserção e retorne indicando o sucesso da operação
+        3.6 Caso contrário, faça o seguinte:
+            3.6.1 Guarde o elemento que se encontra na posição d2
+            3.6.2 Armazene o novo elemento na posição d2
+            3.6.3 Faça com que o elemento a ser inserido passe a ser aquele que foi guardado
+        4. Redimensione a tabela usando o algoritmo RedimensionaTabelaCuco
+    
+- Algoritmo RedimensionaTabelaCuco
+    - Entrada: O conteúdo de um novo elementoe uma tabela de dispersão cuco
+    - Saída: Uma tabela de dispersão cuco e um valor informando o sucesso da operação
+
+    1. Crie uma nova tabela de dispersão cuco com tamanho maior do que o tamanho daquela recebida como entrada
+    2. Insira as chaves da antiga tabela na nova tabela
+    3. Libere o espaço ocupado pela antiga tabela
+    4. Insira o novo elemento na nova tabela
+
+- Algoritmo RemoveEmDispersãoCuco
+    Entrada: A chave c do elemento a ser removido e uma tabela de dispersão cuco
+    Saída: Uma tabela de dispersão cuco e um valor informando o sucesso da operação
+
+    1. Obtenha o valor de dispersão d1 de c usando a função de dispersão associada à primeira tabela
+    2. Se a chave na posição d1 da primeira tabela for igual a c, remova o elemento que se encontra nessa posição e encerre informando o sucesso da operação
+    3. Se a chave na posição d2 da segunda tabela for igual a c, remova o elemento que se encontra nessa posição e encerre informando o sucesso da operação
+    4. Retorne um valor informando que a remoção não obteve sucesso
+
+
+
+--------------------------------------------------------------------------
+
+
+- Análise:
+    - Dispersão Cuco é relativamente pouco usada e precisa de ao menos 50% da tabela vazia para ter bom desempenho.
+        • Depende muito das funções usadas e um fator de carga maior do que 0,5 pode impactar muito o desempenho.
+    - A principal vantagem da dispersão é a rapidez, normalmente sempre com custo O(1).
+        • Mas o pior caso deve ser O(n), se não for cuco.
+        • É dificil a implementação de algoritmos que listam as chaves ordenadamente.
+        • Dificil encontrar menor ou maior chaves.
+    - O custo das árvores binárias O(log n) nem sempre é consideravelmente maior que o custo da dispersão.
+        • E permitem as buscas citadas acima.
+        • Dependendo da implementação, podem tender a O(n) pelo desbalanceamento.
+    - Em dispersão, a escolha da função determina o desempenho.
+        • É preferível a dispersão com encadeamento para os casos de não conhecer as chavesou a quanBdade delas a priori.

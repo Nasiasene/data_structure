@@ -1,0 +1,32 @@
++ Dispersão com Encadeamento:
+
+- Numa tabela de dispersão com encadeamento, uma lista encadeada é associada a cada índice da tabela.
+    - Cada chave cujo valor de dispersão resulta no mesmo índice é inserida na lista encadeada associada a esse índice.
+- A tabela pode ser vista como um array de listas encadeadas.
+- O fator de carga pode ser maior que 1.
+    - Procura-se não deixar muito maior que 1.
+
+
+- Pseudo Algoritmo de BUSCA:
+    - Entrada: Uma tabela de dispersão e uma chave de busca.
+    - Saída: o valor associado a chave caso tenha.
+
+    1. Aplique a função de dispersão sobre a chave, obtenha o index.
+    2. efetue uma busca sequencial na lista encadeada que se situa no índex encontrado.
+
+- Pseudo Algoritmo de INSERÇÃO:
+    - Entrada: O conteúdo de um novo elemento e uma tabela de dispersão com encadeamento.
+    - Saída: o valor associado a chave caso tenha e uma tabela de dispersão com encadeamento.
+
+    1. Aplique a função de dispersão sobre a chave.
+    2. Utilize o valor de dispersão para localizar a lista encadeada da qual a chave fará parte (pelo index).
+    3. Insira a chave no INÍCIO da lista encadeada (coletor) correspondente.
+
+- Pseudo Algoritmo de REMOÇÃO:
+    - Entrada: A chave a ser removida e uma tabela de dispersão com encadeamento.
+    - Saída: Uma tabela de dispersão com encadeamento.
+
+    1. Aplique a função de dispersão sobre a chave a ser removida.
+    2. Utilize o valor de dispersão para localizar a lista encadeada da qual a chave faz parte (pelo index).
+    3. Remova a chave da lista utilizando um algoritmo de remoção em lista encadeada qualquer.
+

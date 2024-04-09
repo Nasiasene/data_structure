@@ -1,0 +1,40 @@
++ Dispersão por Endereçamento Aberto:
+
+- Numa tabela de dispersão com endereçamento aberto (ou com SONDAGEM), TODAS AS CHAVES RESIDEM NO PRÓPRIO ARRAY com o qual a tabela é implementada.
+    - Os coletores são elementos desse array.
+        • O fator de carga é sempre menor do que ou igual 1.
+        • Geralmente, deve-se manter menor do que 0,5.
+
+- Resolução de colisões é efetuada examinando-se posições da tabela a partir da posição na qual ocorre a colisão até que se encontre a chave de busca, uma posição vazia ou todas as possíveis posições tenham sido examinadas.
+    - Podendo-se concluir que a chave não está na tabela.
+
+- As posições de uma tabela de dispersão acessadas durante uma operação formam uma SEQUÊNCIA DE SONDAGEM e a distância entre duas posições consecutivas nessa sequência é denominada PASSO DE SONDAGEM.
+- Para sondar as posições da tabela depois que ocorre uma colisão, utiliza-se uma função de dispersão que depende não apenas da chave de busca, como também de um índice de sondagem.
+
+
+-- Sondagem: É uma técnica usada para resolver colisões em tabelas de dispersão (hash tables). Quando dois ou mais elementos são mapeados para o mesmo slot (bucket) na tabela de dispersão, ocorre uma colisão. A sondagem é o processo de encontrar um novo slot disponível para armazenar o elemento adicional quando uma colisão ocorre.
+
+
+- SONDAGEM OU REESPALHAMENTO.
+
+- Para resolução de colisões em dispersão com endereçamento aberto, são empregadas duas funções de dispersão:
+    • A primeira função de dispersão, denominada função de dispersão primária, é aplicada numa chave para obtenção de seu valor de dispersão.
+    • Quando a aplicação de uma função primária resulta em colisão, o valor de dispersão que ela produz é usado como entrada para uma outra função chamada função de dispersão secundária (ou função de sondagem ou reespalhamento).
+
+    - SONDAGEM LINEAR: Em sondagem linear, examinam-se posições sucessivas circularmente na tabela usando-se uma função de dispersão, que é definida como: 
+        - f(c, i) = (f'(c) + i) mod m
+            - ex: f(c, i) = ((c mod 11) + i) mod 11
+        - Basicamente procura o index, se estiver com gente passa para o próximo(de forma circular).
+        - Na sondagem linear, quando ocorre uma colisão, o algoritmo procura pelo próximo slot vazio na tabela de dispersão de forma linear, isto é, verificando os slots subsequentes um por um até encontrar um slot vazio.
+
+    - SONDAGEM QUADRÁTICA: Numa sondagem quadráAca, a função de resolução de colisão é quadrática e comumente é escolhida como:
+        - f(c, i) = (f'(c) + iˆ2) mod m
+            - ex: f(c, i) = ((c mod 11) + iˆ2) mod 11
+        - Basicamente salta 1, depois 4, depois 9, por ai vai...
+        - Na sondagem quadrática, a distância entre os slots verificados é aumentada de forma quadrática. Em vez de verificar os slots em uma sequência linear, a distância entre os slots é incrementada quadraticamente. Isso pode ajudar a evitar o agrupamento primário (primary clustering), que é uma desvantagem da sondagem linear.
+
+    - SONDAGEM DE DISPERSÃO DUPLA: Sondagens com dispersão dupla utilizam duas funções primárias de dispersão, f1 e f2, na composição da função de sondagem, que é definida como:
+        - f(c, i) = (f1(c) + i·f2(c)) mod m
+            - ex: f(c, i) = (c mod 11 + i·(1 + c mod 9)) mod 11
+            - Basicamente aplica outra função hash em cima da já aplicada(mas uma função diferente)
+            - Na sondagem dupla, uma segunda função de dispersão é usada para calcular a próxima posição a ser verificada quando ocorre uma colisão. Isso pode reduzir o agrupamento primário e melhorar a distribuição dos elementos na tabela de dispersão.
