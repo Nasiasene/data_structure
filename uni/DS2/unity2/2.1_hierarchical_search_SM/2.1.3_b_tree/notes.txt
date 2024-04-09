@@ -34,6 +34,7 @@ possui no MÍNIMO ⌈G/2⌉ FILHOS (teto) e no MÁXIMO G-1.
 - Predecessor = maior chave do nó a esquerda(piso ou maior menor filho)
 - Sucessor = menor chave do nó a direita(teto ou menor maior filho)
 
+- LEMBRETE: Os dados são armazenados JUNTO DAS CHAVES.
 
 ----------------------------------------------------------------------------------------------
 
