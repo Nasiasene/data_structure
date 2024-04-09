@@ -82,7 +82,7 @@ class Btree:
 
 
 - INSERÇÃO: 
-    - Os dois primeiros passos são idên0cos à inserção em uma árvore multidirecional de busca descendente:
+    - Os dois primeiros passos são idênticos à inserção em uma árvore multidirecional de busca descendente:
         • Encontra-se o nó-folha dentro do qual a chave será inserida, usando uma função como EncontraNoMultiMS().
         • Se a folha não estiver completa, insere-se a chave usando uma função como InsereEmFolhaMultiMS().
     - Diferem-se no terceiro passo, quando o nó-folha encontrado no segundo passo é completo:
@@ -109,7 +109,7 @@ class Btree:
         - Entrada: A key a ser inserida, a posição de inserção, o filho a direita da key, e o nó completo da árvore B no qual ocorrerá a inserção e divisão.
         - Saída: O novo nó resultante e a chave que subirá para um nó no próximo nível superior
 
-        1. Se a posição de inserção estiver na parte suerior do array de chaves, faça o seguinte:
+        1. Se a posição de inserção estiver na parte superior do array de chaves, faça o seguinte:
             1.1 Copie a metade das chaves do nó dividido  menos um para um novo nó direito.
             1.2 Insira a nova chave no nó da direita.
             1.3 A chave que subirá para o próximo nível superior da árvore será a última chave do nó que foi dividido.
@@ -232,10 +232,10 @@ class Btree:
         1 Caso remova uma folha cuja tamanho > tamMin:
             -Basta remover a key.
         2 Caso remova um nó central que tem um dos filhos com tamanho > tamMin:
-            - Caso ambos sejam maiores ou somente o esquerdo: Troque o maior filho a esquerda pelo pai, e depois apague ambos. (maior menor)
-            - Caso somente o direito seja maior: Troque o maior filho a DIREITA pelo pai, e depois apague ambos. (menor maior) 
+            - Caso ambos sejam maiores ou somente o esquerdo: Troque o maior filho a esquerda pelo pai, e depois apague ambos. (maior menor) [SOBE]
+            - Caso somente o direito seja maior: Troque o maior filho a DIREITA pelo pai, e depois apague ambos. (menor maior) [SOBE]
         3 Caso remova uma key numa folha cujo tamanho = tamMin:
             3.1 Se seu irmão contrário(nó direito ou esquerdo) tem tamanho > tamMin: Desce o pai DELES para árvore necessária, e sobe o menor valor(caso direito) ou maior valor(caso esquerdo.) [ROTACIONA]
-            3.2 Caso nenhum irmão consiga ceder, funde as folhas: Basta descer o pai de ambos irmãos, e fundir os dois filhos com o pai. [FUNDE]
+            3.2 Caso nenhum irmão consiga ceder, funde as folhas: Basta descer o pai de ambos irmãos(APAGUE-O DO NÓ ONDE ESTAVA), e fundir os dois filhos com o pai. [FUNDE]
             - Caso isso desbalanceie os nós centrais, basta ou rotacionar, ou fundir novamente.
         
