@@ -1,0 +1,168 @@
++ Árvore B+:
+
+- Numa árvore B+ TODAS AS CHAVES são mantidas em FOLHAS e outros nós contêm repetições das chaves.
+    - Nem todas as chaves são repetidas(as que já estão nas folhas).
+    - As FOLHAS são CONECTADAS e constituem uma LISTA ENCADEADA.
+
+- Os REGISTROS(valores) estão associados apenas às chaves contidas nas FOLHAS.
+    - As BUSCAS terminam sempre numa FOLHA, mesmo que a chave seja encontrada em outro nó anterior.
+        • A busca não para se a chave for encontrada num nó que não seja folha
+    
+- A principal vantagem oferecida por árvores B+ é a facilidade de se percorrerem os nós sequencialmente(visto que é uma lista encadeada).
+
+- A lista encadeada de folhas de uma árvore B+ é denominada CONJUNTO SEQUENCIAL.
+    - As ligações do conjunto sequencial permitem fácil processamento sequencial.
+
+- NÓS INTERNOS formam um CONJUNTO DE ÍNDICES e as FOLHAS são encadeadas da esquerda para a direita formando um CONJUNTO SEQUENCIAL.
+
+- Os níveis superiores de uma árvore B+, que são organizados como uma árvore B, consistem apenas de um roteiro para permitir rápida localização de chaves.
+
+- As keys se repetem de forma que elas erão sempre >= a si mesma(estarão sempre no seu filho a direita.)
+
+- A principal vantagem de árvores B+ é permitir o acesso a chaves em ordem crescente sem precisar de caminhamento em ordem infixa, que é bastante dispendioso.
+    • São bem convenientes para aplicações que requerem acessos direto e sequencial.
+
+- Uma vantagem adicional de árvores B+ é que, como os nós internos não contêm índices de registros, pode-se usar o espaço economizado para aumentar o número de chaves em cada nó interno, o que ajuda a diminuir a altura do conjunto de índices.
+
+
+
+------------------------------------------------------------------------------------------------------------
+
+
+- BUSCA:
+    - Uma operação de busca numa árvore B+ começa na raiz da árvore e prossegue seguindo os filhos encontrados no conjunto de índices, como ocorre numa busca em árvore B, até encontrar uma folha.
+    - Diferente de uma busca numa árvore B, na B+ ela não encerra ao achar o elemento em um nó, visto que seus valores estão nas folhas.
+    - Logo, ao achar o elemento em algum nó, basta seguir até o filho direito(menor a direita) dessa chave.
+    - Muito bom para implementar indices de banco de dados.
+
+    - Entrada: Uma chave, a raiz da árvore e o arquivo da árvore.
+    - Saída: O valor associado a chave.
+
+    1. Faça com que a raiz da árvore seja o nó corrente.
+    2. Enquanto o nó corrente for um nó interno faça:
+        2.1 Encontre a posição em que a chave está ou deveria estar no nó corrente.
+        2.2 Se a chave for encontrada, faça com que o nó corrente passe a ser seu filho direito.
+        2.3 Caso contrário, se a chave for menor do que alguma chave no nó corrente, faça com que o nó corrente seja o filho esquerdo da chave que ocupa a (virtual) posiçõ de chave de busca.
+        2.4 Caso contrário, faça com que o próximo nó corrente seja o filho direito da maior chave do nó atual.
+    3. Se a chave for encontrada na folha atingida, retorne seu valor.
+    4. Caso contrário, retorne indicando que a chave não existe.
+
+    - RESUMO: Similar a busca em árvore B, mas ao achar a key, basta descer até seu filho direito(caso não seja folha).
+    - Pode-se fazer uma busca sequencial por suas folhas.(como uma lista)
+
+
+- INSERÇÃO: 
+    - Quando há espaço para inserção numa folha, a chave é inserida em ordem e o conjunto de índices não é alterado.
+    - Se a folha estiver completa, ela é dividida e uma nova folha é inserida no conjunto sequencial.
+        - As chaves são divididas entre a nova folha e a folha antiga e a primeira chave da nova folha é copiada (e não movida) para o nó-pai.
+    - O resto da é semelhante ao que ocorre com inserção em árvores B.
+    - No split quem sobe(é copiado) será a MENOR CHAVE do filho DIREITO(primeira key do segundo split).
+    - Basicamente igual a Árvore B.(somente cópia a key p folha)
+
+    - Entrada: A chave a ser inserida e o seu valor e a árvore B+.
+    - Saída: A árvore B+ modificada.
+
+    1. Se a árvore estiver vazia:
+        1.1 Crie uma nova folha.
+        1.2 Insira a chave na folha.
+        1.3 Faça a folha apontar para uma posição que indique o final de encadeamento
+        1.4 Faça com que a raiz da árvore seja representada por essa folha.
+        1.5 Encerre informando sucesso.
+    2. faça a busca usando a chave EMPILHANDO os nós no caminho.
+    3. Se a chave for encontrada mostre falha.
+    4. SE a folha que a chave for inserida não estiver cheia, simplesmente insira a chave.
+    5. Se a folha estiver completa:
+        5.1 Crie uma nova folha.
+        5.2 Copie metade das chaves maiores da folha para nova folha.
+        5.3 Faça a nova folha apontar para folha que a antiga folha apontava.
+        5.4 Faça a folha antiga apontar para folha nova.
+        5.5 Atribua à var key a primeira chave da nova folha.
+        5.6 Atribua à var posição a posição da nova folha no arquivo.
+        5.7 Enquanto a pilha não estiver vazia, faça:
+            5.7.1 Desempilhe um nó interno I.
+            5.7.2 Se o nó não estiver cheio:
+                5.7.1.1 Insira a chave tendo posição como seu filho direito em seu devido lugar no nó I.
+                5.7.1.2 Encerre.
+            5.7.3 Caso o nó I esteja cheio:
+                5.7.3.1 Divida o nó I usando o algoritmo de DivideNóInternoB+(igualB)
+                5.7.3.2 Atualize os valores das var key e posição.
+    6. crie uma nova raiz contendo o valor da var key como chave, etendo como filho esquerdo do último nó dividido e como filho direito o novo nó.
+
+
+- REMOÇÃO:
+    - Se o número de chaves restantes na folha na qual ocorre a remoção não ficar abaixo da metade, o complemento da remoção requer apenas reorganização das chaves na folha para mantê-la ordenada.
+    - Quando uma remoção faz com que uma folha fique com um número de chaves abaixo do esperado, podem ocorrer duas situações:
+        1. As chaves da folha e as chaves de uma folha-irmã são redistribuídas entre si, de tal modo que ambas permaneçam com um número de chaves dentro do limite permitido.[ROTACIONA]
+            • Nesse caso, a chave do nó-pai cujo filho direito é a folha direita envolvida na distribuição de chaves deve ser substituída pela menor chave dessa folha.
+        2. A folha é removida e suas chaves são incluídas numa irmã. Então as chaves dessa folha e sua irmã são combinadas para cons0tuir uma única folha. [FUNDE]
+            • Nesse caso, o filho do nó-pai que aponta para a folha que foi removida e a chave à sua direita (ou esquerda) devem ser removidos.
+    - Outros ajustes em nós ancestrais podem ser necessários, assim como ocorre com árvores B.
+    - OBSERVAÇÃO:
+        - É interessante notar que, com exceção da primeira folha de uma árvore B+ (i.e., aquela mais à esquerda da árvore), cada primeira chave de uma folha aparece num nó interno.
+           • Assim o número de chaves em nós internos é igual ao número de folhas menos um.
+        - Excetuando-se a chave mais à esquerda de uma árvore B+, os seguintes fatos são verdadeiros:
+            • A primeira chave da primeira folha filha de um dado nó interno aparece num nó interno que está num nível superior ao nível mais baixo de nós internos.
+            • As primeiras chaves das demais folhas filhas de um dado nó interno aparecem nesse nó interno.
+    - Agora, ao substituir uma chave central/raiz, ao invés de pegar a maior chave a esuerda(piso) pega-se a menor chave a direita(teto).
+
+    Entrada: A chave e a árvore B+
+    Saída: A árvore modificada, se a operação for bem-sucedida, e um valor indicando o sucesso ou fracasso da operação
+
+    1. Faça uma busca pela chave a ser removida, EMPILHANDO os nós que se encontram no caminho da raiz até a folha que deverá conter essa chave
+    2. Se a chave não for encontrada numa folha, encerre a operação informando que ela fracassou
+    3. Se a chave for encontrada numa folha F, remova-a, promovendo os deslocamentos de chaves que se fizerem necessários
+    4. Se a folha F for a raiz da árvore
+        4.1 Se F ficar vazia, torne a árvore vazia
+        4.2 Encerre informando o sucesso da operação
+    5. Se a chave removida era a menor chave da folha F, guarde a nova menor chave (ela poderá ser necessária para substituir a chave removida em algum nó interno)
+    6. Se a folha F não ficar com um número de chaves menor do que o mínimo estabelecido, atualize o índice usando o algoritmo AtualizaIndice
+    7. Caso contrário, faça o seguinte:
+        7.1 Se a irmã esquerda FE da folha F tiver um número de chaves maior do que o mínimo requerido:
+            7.1.1 Transfira a maior chave de FE para F
+            7.1.2 Atualize os nós internos usando o algoritmo AtualizaIndice
+        7.2 Caso contrário, se a irmã direita FD da folha F tiver um número de chaves maior do que o mínimo requerido
+            7.2.1 Transfira a menor chave de FD para F
+            7.2.2 Atualize os nós internos usando o algoritmo AtualizaIndice
+        7.3 Caso contrário, se F possui irmã esquerda FE
+            7.3.1 Transfira todas as chaves de F para FE
+            7.3.2 Remova do último nó interno visitado o apontador para a folha F e a chave que separa as folhas F para FE
+            7.3.3 Atualize os nós internos usando o algoritmo AtualizaIndice
+        7.4 Caso contrário (F possui irmã direita FD ):
+            7.4.4 Transfira todas as chaves de F para FD
+            7.4.5 Remova do último nó interno visitado o apontador para a folha F e a chave que separa as folhas F para FD
+            7.4.6 Atualize os nós internos usando o algoritmo AtualizaIndice
+    8. Retorne informando o sucesso da operação
+
+    • AtualizaIndiceEmÁrvoreB+:
+        Entrada: Uma pilha contendo os nós encontrados desde a raiz até o último nó interno visitado numa operação de remoção, a chave removida.
+        Saída: A árvore B+ alterada
+
+        1. Enquanto a pilha não estiver vazia, faça o seguinte:
+            1.1 Desempilhe um nó (N)
+            1.2 Se a chave removida se encontrar em N e precisar ser substituída, troque-a pela chave substituta
+            1.3 Se não houver remoção em N, encerre
+            1.4 Caso contrário, remova a chave juntamente com seu filho direito
+            1.5 Se o número de chaves de N não for menor do que o mínimo, encerre
+            1.6 Caso contrário, ajuste os nós internos usando o algoritmo JuntaNosB+
+
+
+
+
+------------------------------------------------------------------------------------------------------------
+
+
+
+- Análise:
+
+.                               _____________________________________________________________________
+.                               |                          Árvore Multidericional                   |
+.                               |-------------------------------------------------------------------|
+________________________________|Descendente|             B             |             B+            |
+Chaves armazenadas em           |  Não há   |       Qualquer nó         |         Folhas            |
+Grau mínimo de um nó            |  Não há   |    Metade do grau máx     |    Metade do grau máx     |
+divisão de nós                  |  Não há   |   1 nó é dividido em 2    |   1 nó é dividido em 2    |
+Combinação de nós               |  Não há   | 2 nós são combinados em 1 | 2 nós são combinados em 1 |  
+Permite inserção massiva?       |    Não    |             Sim           |             Sim           |
+Facilita pesquisa de intervalo? |    Não    |             Não           |             Sim           |
+Utilização                      |  Didática |           Prática         |           Prática         |
+--------------------------------|-----------|---------------------------|---------------------------|
